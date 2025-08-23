@@ -2,3 +2,8 @@
 session-recorder/data/
 session-recorder/node_modules/
 .claude-flow/
+shell-viewer/frontend/node_modules/
+shell-viewer/backend/node_modules/
+performance-logs/
+*.pack
+.cache/
