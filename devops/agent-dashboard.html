@@ -275,6 +275,151 @@
             color: #667eea;
             font-weight: bold;
         }
+
+        .second-brain-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .brain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .brain-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .brain-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .brain-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .brain-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .brain-info {
+            flex-grow: 1;
+        }
+
+        .brain-info h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .brain-path {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85em;
+            color: #666;
+            background: rgba(0,0,0,0.05);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .brain-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .brain-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .brain-btn:hover {
+            background: #5a67d8;
+        }
+
+        .brain-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .brain-stats .stat {
+            background: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            color: #555;
+            border: 1px solid #e0e0e0;
+        }
+
+        .brain-viewer {
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px solid #dee2e6;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow: hidden;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #667eea;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .viewer-header h3 {
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .viewer-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -316,6 +461,97 @@
             <h2>📁 Active Projects</h2>
             <div class="project-list" id="projectList">
                 <!-- Project items will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <div class="second-brain-section">
+            <h2>🧠 Second Brain Database</h2>
+            <div class="brain-grid">
+                <div class="brain-card">
+                    <div class="brain-header">
+                        <div class="brain-icon">🗄️</div>
+                        <div class="brain-info">
+                            <h3>Claude Sessions</h3>
+                            <div class="brain-path">~/.claude-sessions/</div>
+                        </div>
+                        <div class="brain-actions">
+                            <button class="brain-btn" onclick="openBrainLocation('~/.claude-sessions/')">📂 Open</button>
+                            <button class="brain-btn" onclick="viewBrainData('sessions')">👁️ View</button>
+                        </div>
+                    </div>
+                    <div class="brain-stats">
+                        <span class="stat">State: 24KB</span>
+                        <span class="stat">Projects: 16</span>
+                        <span class="stat">Active Sessions</span>
+                    </div>
+                </div>
+
+                <div class="brain-card">
+                    <div class="brain-header">
+                        <div class="brain-icon">🤖</div>
+                        <div class="brain-info">
+                            <h3>Agent Memory</h3>
+                            <div class="brain-path">~/memory/agents/</div>
+                        </div>
+                        <div class="brain-actions">
+                            <button class="brain-btn" onclick="openBrainLocation('~/memory/agents/')">📂 Open</button>
+                            <button class="brain-btn" onclick="viewBrainData('agents')">👁️ View</button>
+                        </div>
+                    </div>
+                    <div class="brain-stats">
+                        <span class="stat">Agents: Active</span>
+                        <span class="stat">Knowledge Base</span>
+                        <span class="stat">State Tracking</span>
+                    </div>
+                </div>
+
+                <div class="brain-card">
+                    <div class="brain-header">
+                        <div class="brain-icon">💾</div>
+                        <div class="brain-info">
+                            <h3>Flow Memory</h3>
+                            <div class="brain-path">~/memory/claude-flow-data.json</div>
+                        </div>
+                        <div class="brain-actions">
+                            <button class="brain-btn" onclick="openBrainLocation('~/memory/')">📂 Open</button>
+                            <button class="brain-btn" onclick="viewBrainData('flow')">👁️ View</button>
+                        </div>
+                    </div>
+                    <div class="brain-stats">
+                        <span class="stat">Tasks: Tracked</span>
+                        <span class="stat">Agents: Recorded</span>
+                        <span class="stat">JSON Format</span>
+                    </div>
+                </div>
+
+                <div class="brain-card">
+                    <div class="brain-header">
+                        <div class="brain-icon">🔄</div>
+                        <div class="brain-info">
+                            <h3>Swarm Memory</h3>
+                            <div class="brain-path">Multiple .swarm/memory.db</div>
+                        </div>
+                        <div class="brain-actions">
+                            <button class="brain-btn" onclick="openBrainLocation('~/.swarm/')">📂 Open</button>
+                            <button class="brain-btn" onclick="viewBrainData('swarm')">👁️ View</button>
+                        </div>
+                    </div>
+                    <div class="brain-stats">
+                        <span class="stat">Distributed</span>
+                        <span class="stat">SQLite DBs</span>
+                        <span class="stat">Cross-Project</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brain-viewer" id="brainViewer" style="display: none;">
+                <div class="viewer-header">
+                    <h3 id="viewerTitle">Database Viewer</h3>
+                    <button class="close-btn" onclick="closeBrainViewer()">✕</button>
+                </div>
+                <div class="viewer-content" id="viewerContent">
+                    <!-- Content will be loaded here -->
+                </div>
             </div>
         </div>
     </div>
@@ -619,6 +855,154 @@
             
             console.log('Agent Dashboard initialized');
         });
+
+        // Second Brain Database Functions
+        function openBrainLocation(path) {
+            // This would open the actual file location
+            // For now, we'll show an alert with the path
+            alert(`Opening: ${path}\n\nIn a real implementation, this would open the Finder/Explorer to this location.`);
+            console.log(`Opening brain location: ${path}`);
+        }
+
+        function viewBrainData(type) {
+            const viewer = document.getElementById('brainViewer');
+            const title = document.getElementById('viewerTitle');
+            const content = document.getElementById('viewerContent');
+            
+            // Mock data for different brain types
+            let mockData = '';
+            let titleText = '';
+            
+            switch(type) {
+                case 'sessions':
+                    titleText = '🗄️ Claude Sessions Database';
+                    mockData = `{
+  "sessions": [
+    {
+      "projectId": "d430dc46-0f27-455d-bd86-9a45a1642d85",
+      "sessionId": "2d32bf3f-1812-4f1a-9b0c-ae47db573c5d",
+      "timestamp": "2025-08-22T15:33:59.537Z",
+      "context": {
+        "workingDirectory": "/Users/Danallovertheplace/pachacuti",
+        "activeFiles": ["devops/monitor.sh", "scripts/auto-commit.sh"],
+        "lastTask": "DevOps infrastructure setup"
+      },
+      "statistics": {
+        "filesModified": 15,
+        "commandsExecuted": 42,
+        "duration": "2h 45m"
+      },
+      "summary": "Completed DevOps monitoring system setup"
+    }
+  ],
+  "metadata": {
+    "totalSessions": 16,
+    "lastUpdated": "2025-08-23T13:17:00.000Z",
+    "storageSize": "24KB"
+  }
+}`;
+                    break;
+                    
+                case 'agents':
+                    titleText = '🤖 Agent Memory Database';
+                    mockData = `Agent Memory Structure:
+
+memory/agents/
+├── agent_001/
+│   ├── state.json           # Agent state and configuration
+│   ├── knowledge.md         # Agent-specific knowledge base
+│   ├── tasks.json          # Completed and active tasks
+│   └── calibration.json    # Agent-specific calibrations
+├── shared/
+│   ├── common_knowledge.md  # Shared knowledge across agents
+│   └── global_config.json  # Global agent configurations
+
+Recent Agent Activities:
+• Pachacuti (DevOps CTO): Terminal naming, approval system
+• Code Agent: Dashboard development  
+• Review Agent: Code quality checks
+• Test Agent: Quality assurance
+
+Knowledge Base Topics:
+- Terminal automation
+- Git workflow optimization
+- Dashboard development
+- System monitoring`;
+                    break;
+                    
+                case 'flow':
+                    titleText = '💾 Claude Flow Memory';
+                    mockData = `{
+  "agents": [],
+  "tasks": [],
+  "lastUpdated": 1755625701958,
+  "recentActivities": [
+    {
+      "timestamp": "2025-08-23T13:15:00.000Z",
+      "agent": "pachacuti",
+      "action": "created_dashboard",
+      "files": ["agent-dashboard.html", "launch-dashboard.sh"]
+    },
+    {
+      "timestamp": "2025-08-23T12:45:00.000Z", 
+      "agent": "system",
+      "action": "auto_commit",
+      "details": "28 files changed, pushed to GitHub"
+    }
+  ],
+  "metrics": {
+    "totalTasks": 42,
+    "completedTasks": 38,
+    "activeAgents": 4,
+    "sessionDuration": "3h 17m"
+  }
+}`;
+                    break;
+                    
+                case 'swarm':
+                    titleText = '🔄 Swarm Memory Database';
+                    mockData = `Distributed Swarm Memory Locations:
+
+~/.swarm/memory.db (Global)
+~/pachacuti/.swarm/memory.db  
+~/crypto-campaign-unified/.swarm/memory.db
+~/claude-productivity-tools/.swarm/memory.db
+~/visual-verification/.swarm/memory.db
+
+Recent Swarm Activities:
+- Coordination between DevOps and Code agents
+- Cross-project file synchronization  
+- Distributed task completion tracking
+- Memory synchronization across projects
+
+Database Schema (SQLite):
+• agents table: agent_id, status, last_active
+• tasks table: task_id, assignee, completion_status
+• memory table: key, value, timestamp, namespace
+• coordination table: project_id, sync_status
+
+Active Namespaces:
+- devops: DevOps infrastructure memory
+- terminal: Terminal naming configurations  
+- git: Auto-commit system state
+- dashboard: Monitoring system data`;
+                    break;
+                    
+                default:
+                    titleText = '🧠 Database Viewer';
+                    mockData = 'Select a database type to view its contents.';
+            }
+            
+            title.textContent = titleText;
+            content.innerHTML = `<pre>${mockData}</pre>`;
+            viewer.style.display = 'block';
+            viewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeBrainViewer() {
+            const viewer = document.getElementById('brainViewer');
+            viewer.style.display = 'none';
+        }
     </script>
 </body>
 </html>
