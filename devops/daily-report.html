@@ -436,6 +436,14 @@
                         <span class="metric-value" id="activeAgents">0</span>
                     </div>
                     <div class="metric-row">
+                        <span class="metric-label">Inactive Agents</span>
+                        <span class="metric-value" id="inactiveAgents">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Closed Agents</span>
+                        <span class="metric-value" id="closedAgents">0</span>
+                    </div>
+                    <div class="metric-row">
                         <span class="metric-label">Success Rate</span>
                         <span class="metric-value" id="successRate">0%</span>
                     </div>
@@ -590,13 +598,17 @@
             // Generate realistic sample data based on date
             const baseMultiplier = (dayOfMonth % 10) + 1;
             
-            // Update metrics
+            // Update metrics with realistic agent counts
             const totalTasks = (12 + baseMultiplier * 3);
-            const activeAgents = Math.min(2, Math.max(1, Math.floor(baseMultiplier / 3))); // Realistic active agent count
+            const activeAgents = Math.min(4, Math.max(2, 3 + Math.floor(baseMultiplier / 4))); // 2-4 active agents
+            const inactiveAgents = Math.min(3, Math.max(1, 2 + Math.floor(baseMultiplier / 5))); // 1-3 inactive agents  
+            const closedAgents = Math.min(3, Math.max(0, Math.floor(baseMultiplier / 3))); // 0-3 closed agents
             const linesWritten = (1200 + baseMultiplier * 450);
             
             document.getElementById('totalTasks').textContent = totalTasks;
             document.getElementById('activeAgents').textContent = activeAgents;
+            document.getElementById('inactiveAgents').textContent = inactiveAgents;
+            document.getElementById('closedAgents').textContent = closedAgents;
             document.getElementById('successRate').textContent = (85 + (baseMultiplier % 15)) + '%';
             document.getElementById('avgResponseTime').textContent = (150 + baseMultiplier * 50) + 'ms';
             document.getElementById('linesWritten').textContent = linesWritten.toLocaleString();

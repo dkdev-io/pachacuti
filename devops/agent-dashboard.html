@@ -820,6 +820,14 @@
                 <div class="label">Active Agents</div>
             </div>
             <div class="stat-item">
+                <div class="value" id="inactiveAgents">0</div>
+                <div class="label">Inactive Agents</div>
+            </div>
+            <div class="stat-item">
+                <div class="value" id="closedAgents">0</div>
+                <div class="label">Closed Agents</div>
+            </div>
+            <div class="stat-item">
                 <div class="value" id="totalProjects">0</div>
                 <div class="label">Projects</div>
             </div>
@@ -834,10 +842,6 @@
             <div class="stat-item">
                 <div class="value" id="linesWritten">0</div>
                 <div class="label">Lines Written</div>
-            </div>
-            <div class="stat-item">
-                <div class="value" id="uptime">0h</div>
-                <div class="label">Session Time</div>
             </div>
         </div>
 
@@ -1093,16 +1097,17 @@
         const mockAgents = [
             {
                 id: 'pachacuti',
-                name: 'Pachacuti',
+                name: 'Pachacuti DevOps',
                 role: 'DevOps CTO',
                 status: 'active',
                 icon: '🤖',
-                currentTask: 'Managing DevOps operations',
+                currentTask: 'Managing dashboard enhancements',
                 filesModified: 15,
                 linesWritten: 2847,
                 timeActive: '2h 45m',
-                lastAction: 'Created daily report system',
-                lastActiveTime: Date.now() - 300000, // 5 minutes ago
+                lastAction: 'Added quick report access',
+                lastActiveTime: Date.now() - 120000, // 2 minutes ago
+                checkoutStatus: 'open',
                 metrics: {
                     commits: 3,
                     reviews: 1,
@@ -1111,16 +1116,17 @@
             },
             {
                 id: 'coder',
-                name: 'Code Agent',
-                role: 'Implementation',
+                name: 'Implementation Agent',
+                role: 'Full Stack Developer',
                 status: 'active',
                 icon: '💻',
-                currentTask: 'Writing dashboard components',
+                currentTask: 'Implementing user interface',
                 filesModified: 8,
                 linesWritten: 1456,
-                timeActive: '45m',
-                lastAction: 'Updated navigation structure',
+                timeActive: '1h 20m',
+                lastAction: 'Updated component styling',
                 lastActiveTime: Date.now() - 180000, // 3 minutes ago
+                checkoutStatus: 'open',
                 metrics: {
                     commits: 2,
                     reviews: 0,
@@ -1128,39 +1134,117 @@
                 }
             },
             {
-                id: 'tester',
-                name: 'Test Agent',
-                role: 'Quality Assurance',
-                status: 'idle',
-                icon: '🧪',
-                currentTask: 'Waiting for new tests',
-                filesModified: 0,
-                linesWritten: 0,
-                timeActive: '10m',
-                lastAction: 'Completed test suite validation',
-                lastActiveTime: Date.now() - 3600000, // 1 hour ago
+                id: 'analyst',
+                name: 'Data Analysis Agent',
+                role: 'Business Intelligence',
+                status: 'active',
+                icon: '📊',
+                currentTask: 'Processing user metrics',
+                filesModified: 3,
+                linesWritten: 892,
+                timeActive: '55m',
+                lastAction: 'Generated analytics report',
+                lastActiveTime: Date.now() - 240000, // 4 minutes ago
+                checkoutStatus: 'open',
                 metrics: {
-                    commits: 0,
-                    reviews: 2,
+                    commits: 1,
+                    reviews: 0,
                     deploys: 0
                 }
             },
             {
-                id: 'reviewer',
-                name: 'Review Agent',
-                role: 'Code Review',
-                status: 'idle',
+                id: 'researcher',
+                name: 'Research Agent',
+                role: 'Technical Research',
+                status: 'active',
                 icon: '🔍',
-                currentTask: 'Monitoring for new PRs',
+                currentTask: 'Researching optimization strategies',
+                filesModified: 2,
+                linesWritten: 654,
+                timeActive: '35m',
+                lastAction: 'Compiled best practices document',
+                lastActiveTime: Date.now() - 300000, // 5 minutes ago
+                checkoutStatus: 'open',
+                metrics: {
+                    commits: 1,
+                    reviews: 1,
+                    deploys: 0
+                }
+            },
+            {
+                id: 'tester',
+                name: 'QA Testing Agent',
+                role: 'Quality Assurance',
+                status: 'inactive',
+                icon: '🧪',
+                currentTask: 'Shell open, waiting for tasks',
                 filesModified: 0,
                 linesWritten: 0,
-                timeActive: '30m',
-                lastAction: 'Approved PR #42',
+                timeActive: '10m',
+                lastAction: 'Opened testing environment',
                 lastActiveTime: Date.now() - 1800000, // 30 minutes ago
+                checkoutStatus: 'open',
                 metrics: {
                     commits: 0,
-                    reviews: 5,
+                    reviews: 0,
                     deploys: 0
+                }
+            },
+            {
+                id: 'security',
+                name: 'Security Agent',
+                role: 'Security Audit',
+                status: 'inactive',
+                icon: '🔒',
+                currentTask: 'Shell open, monitoring security',
+                filesModified: 0,
+                linesWritten: 0,
+                timeActive: '5m',
+                lastAction: 'Initialized security scan',
+                lastActiveTime: Date.now() - 2400000, // 40 minutes ago
+                checkoutStatus: 'open',
+                metrics: {
+                    commits: 0,
+                    reviews: 0,
+                    deploys: 0
+                }
+            },
+            {
+                id: 'deployer',
+                name: 'Deployment Agent',
+                role: 'DevOps Deployment',
+                status: 'closed',
+                icon: '🚀',
+                currentTask: 'Checkout complete',
+                filesModified: 5,
+                linesWritten: 234,
+                timeActive: '45m',
+                lastAction: 'Completed CI/CD pipeline setup',
+                lastActiveTime: Date.now() - 7200000, // 2 hours ago
+                checkoutStatus: 'complete',
+                metrics: {
+                    commits: 3,
+                    reviews: 0,
+                    deploys: 2
+                }
+            },
+            {
+                id: 'optimizer',
+                name: 'Performance Agent',
+                role: 'Performance Engineering',
+                status: 'closed',
+                icon: '⚡',
+                currentTask: 'Checkout complete',
+                filesModified: 7,
+                linesWritten: 1123,
+                timeActive: '1h 30m',
+                lastAction: 'Optimized database queries',
+                lastActiveTime: Date.now() - 10800000, // 3 hours ago
+                checkoutStatus: 'complete',
+                metrics: {
+                    commits: 2,
+                    reviews: 1,
+                    deploys: 1
                 }
             }
         ];
@@ -1316,32 +1400,24 @@
             }
 
             updateStats() {
-                // Update agent statuses based on recent activity
-                this.agents.forEach(agent => {
-                    const timeSinceActive = Date.now() - agent.lastActiveTime;
-                    const isRecentlyActive = timeSinceActive < 600000; // 10 minutes
-                    agent.status = isRecentlyActive ? 'active' : 'idle';
-                });
-
+                // Count agents by accurate status categories
                 const activeAgents = this.agents.filter(a => a.status === 'active').length;
+                const inactiveAgents = this.agents.filter(a => a.status === 'inactive').length;
+                const closedAgents = this.agents.filter(a => a.status === 'closed').length;
+                
                 const totalProjects = this.projects.length;
                 const filesModified = this.agents.reduce((sum, a) => sum + a.filesModified, 0);
                 const linesWritten = this.agents.reduce((sum, a) => sum + (a.linesWritten || 0), 0);
                 const tasksCompleted = this.agents.reduce((sum, a) => sum + (a.metrics?.commits || 0), 0);
-                
-                // Calculate uptime
-                const now = new Date();
-                const diff = now - this.sessionStart;
-                const hours = Math.floor(diff / 3600000);
-                const minutes = Math.floor((diff % 3600000) / 60000);
-                const uptime = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 
+                // Update dashboard stats
                 document.getElementById('activeAgents').textContent = activeAgents;
+                document.getElementById('inactiveAgents').textContent = inactiveAgents;
+                document.getElementById('closedAgents').textContent = closedAgents;
                 document.getElementById('totalProjects').textContent = totalProjects;
                 document.getElementById('filesModified').textContent = filesModified;
                 document.getElementById('linesWritten').textContent = linesWritten.toLocaleString();
                 document.getElementById('tasksCompleted').textContent = tasksCompleted;
-                document.getElementById('uptime').textContent = uptime;
             }
 
             updateLastUpdate() {
