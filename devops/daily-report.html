@@ -533,8 +533,27 @@
     </div>
 
     <script>
-        // Set today's date as default
-        document.getElementById('report-date').valueAsDate = new Date();
+        // Set date from URL parameter or today's date as default
+        function getDateFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('date');
+        }
+
+        function initializeDatePicker() {
+            const reportDateInput = document.getElementById('report-date');
+            const urlDate = getDateFromURL();
+            
+            if (urlDate) {
+                reportDateInput.value = urlDate;
+                // Auto-generate report if date came from URL
+                setTimeout(() => generateReport(), 500);
+            } else {
+                reportDateInput.valueAsDate = new Date();
+            }
+        }
+
+        // Initialize date picker
+        initializeDatePicker();
 
         function generateReport() {
             const selectedDate = document.getElementById('report-date').value;
