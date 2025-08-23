@@ -36,6 +36,29 @@
             opacity: 0.9;
         }
 
+        .nav-bar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.2);
+        }
+
         .header .last-update {
             margin-top: 10px;
             font-size: 0.9em;
@@ -72,6 +95,142 @@
         .stat-item .label {
             color: #666;
             margin-top: 5px;
+        }
+
+        .projects-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .create-project-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: auto;
+            transition: transform 0.2s;
+        }
+
+        .create-project-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-planning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-active {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .project-agents {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .agent-badge {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            font-weight: 500;
+        }
+
+        .integration-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .integration-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .integration-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .integration-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-online {
+            background: #28a745;
+        }
+
+        .status-offline {
+            background: #dc3545;
+        }
+
+        .integration-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .agents-grid {
@@ -808,9 +967,17 @@
 </head>
 <body>
     <div class="header">
-        <h1>🎯 Claude Code Agent Monitor</h1>
-        <div class="subtitle">Pachacuti DevOps Dashboard</div>
+        <h1>🎯 Pachacuti DevOps Command Center</h1>
+        <div class="subtitle">Unified Agent Monitoring & Project Orchestration</div>
         <div class="last-update">Last Update: <span id="lastUpdate">Loading...</span></div>
+    </div>
+
+    <div class="nav-bar">
+        <a href="#overview" class="nav-link active">📊 Overview</a>
+        <a href="#projects" class="nav-link">🎯 Projects</a>
+        <a href="#agents" class="nav-link">🤖 Agents</a>
+        <a href="#shell" class="nav-link">💻 Shell Tracking</a>
+        <a href="#daily" class="nav-link">📅 Daily Report</a>
     </div>
 
     <div class="dashboard">
@@ -843,6 +1010,14 @@
                 <div class="value" id="linesWritten">0</div>
                 <div class="label">Lines Written</div>
             </div>
+            <div class="stat-item">
+                <div class="value" id="activeProjects">0</div>
+                <div class="label">Active Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="value" id="projectAgents">0</div>
+                <div class="label">Project Agents</div>
+            </div>
         </div>
 
         <!-- Quick Daily Report Access -->
@@ -858,6 +1033,49 @@
                 <div class="quick-report-controls">
                     <input type="date" id="quickDatePicker" class="quick-date-input" />
                     <button class="quick-view-btn" onclick="viewDailyReport()">View Report</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="projects-section" id="projectsSection">
+            <div class="section-title">
+                🎯 Active Projects
+                <button class="create-project-btn" onclick="showCreateProject()">+ Create Project</button>
+            </div>
+            <div id="projectsGrid">
+                <!-- Projects will be populated here -->
+            </div>
+        </div>
+
+        <div class="integration-panel">
+            <div class="section-title">🔗 System Integrations</div>
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h3>💻 Shell Viewer</h3>
+                    <div>
+                        <span class="integration-status status-offline" id="shellStatus"></span>
+                        <span id="shellStatusText">Checking...</span>
+                    </div>
+                    <p>Real-time shell session monitoring</p>
+                    <a href="http://localhost:3001" target="_blank" class="integration-btn">Open Shell Viewer</a>
+                </div>
+                <div class="integration-card">
+                    <h3>⚙️ Backend API</h3>
+                    <div>
+                        <span class="integration-status status-offline" id="backendStatus"></span>
+                        <span id="backendStatusText">Checking...</span>
+                    </div>
+                    <p>Agent coordination & data services</p>
+                    <a href="http://localhost:3002" target="_blank" class="integration-btn">View API</a>
+                </div>
+                <div class="integration-card">
+                    <h3>📋 Task Manager</h3>
+                    <div>
+                        <span class="integration-status status-online" id="taskManagerStatus"></span>
+                        <span>Active</span>
+                    </div>
+                    <p>Multi-project orchestration</p>
+                    <button class="integration-btn" onclick="openTaskManagerDashboard()">View Dashboard</button>
                 </div>
             </div>
         </div>
@@ -1292,6 +1510,12 @@
             constructor() {
                 this.agents = [];
                 this.projects = [];
+                this.taskManagerProjects = [];
+                this.integrationStatus = {
+                    shell: false,
+                    backend: false,
+                    taskManager: true
+                };
                 this.refreshInterval = 30; // seconds
                 this.countdown = this.refreshInterval;
                 this.sessionStart = new Date();
@@ -1301,6 +1525,8 @@
             init() {
                 this.loadData();
                 this.render();
+                this.loadTaskManagerData();
+                this.checkIntegrationStatus();
                 this.startAutoRefresh();
                 this.updateStats();
             }
@@ -1481,6 +1707,8 @@
                 const closedAgents = this.agents.filter(a => a.status === 'closed').length;
                 
                 const totalProjects = this.projects.length;
+                const activeProjects = this.taskManagerProjects.length;
+                const projectAgents = this.taskManagerProjects.reduce((sum, p) => sum + (p.agentTypes?.length || 0), 0);
                 const filesModified = this.agents.reduce((sum, a) => sum + a.filesModified, 0);
                 const linesWritten = this.agents.reduce((sum, a) => sum + (a.linesWritten || 0), 0);
                 const tasksCompleted = this.agents.reduce((sum, a) => sum + (a.metrics?.commits || 0), 0);
@@ -1492,6 +1720,8 @@
                 document.getElementById('totalProjects').textContent = totalProjects;
                 document.getElementById('filesModified').textContent = filesModified;
                 document.getElementById('linesWritten').textContent = linesWritten.toLocaleString();
+                document.getElementById('activeProjects').textContent = activeProjects;
+                document.getElementById('projectAgents').textContent = projectAgents;
                 document.getElementById('tasksCompleted').textContent = tasksCompleted;
             }
 
@@ -1522,11 +1752,96 @@
             refresh() {
                 console.log('Refreshing dashboard...');
                 this.loadData();
+                this.loadTaskManagerData();
+                this.checkIntegrationStatus();
                 this.render();
                 this.updateStats();
                 
                 // Simulate dynamic updates
                 this.simulateActivity();
+            }
+
+            async loadTaskManagerData() {
+                try {
+                    const response = await fetch('/task-manager/state.json');
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.taskManagerProjects = data.activeProjects ? 
+                            Array.from(data.activeProjects.values ? data.activeProjects.values() : Object.values(data.activeProjects[1] || {})) : [];
+                        this.renderProjects();
+                    }
+                } catch (error) {
+                    console.log('Task Manager data not available:', error.message);
+                    // Use mock data for demonstration
+                    this.taskManagerProjects = [{
+                        name: "React Component Library",
+                        status: "planning",
+                        agentTypes: ["planner", "frontend-dev", "coder", "reviewer"],
+                        complexity: 5,
+                        createdAt: new Date().toISOString()
+                    }];
+                    this.renderProjects();
+                }
+            }
+
+            async checkIntegrationStatus() {
+                // Check Shell Viewer (localhost:3001)
+                try {
+                    const shellResponse = await fetch('http://localhost:3001/health', { mode: 'no-cors' });
+                    this.integrationStatus.shell = true;
+                    document.getElementById('shellStatus').className = 'integration-status status-online';
+                    document.getElementById('shellStatusText').textContent = 'Online';
+                } catch (error) {
+                    this.integrationStatus.shell = false;
+                    document.getElementById('shellStatus').className = 'integration-status status-offline';
+                    document.getElementById('shellStatusText').textContent = 'Offline';
+                }
+
+                // Check Backend API (localhost:3002)
+                try {
+                    const backendResponse = await fetch('http://localhost:3002/health', { mode: 'no-cors' });
+                    this.integrationStatus.backend = true;
+                    document.getElementById('backendStatus').className = 'integration-status status-online';
+                    document.getElementById('backendStatusText').textContent = 'Online';
+                } catch (error) {
+                    this.integrationStatus.backend = false;
+                    document.getElementById('backendStatus').className = 'integration-status status-offline';
+                    document.getElementById('backendStatusText').textContent = 'Offline';
+                }
+            }
+
+            renderProjects() {
+                const grid = document.getElementById('projectsGrid');
+                if (!grid) return;
+                
+                grid.innerHTML = '';
+                
+                if (this.taskManagerProjects.length === 0) {
+                    grid.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No active projects. Create your first project to get started!</p>';
+                    return;
+                }
+
+                this.taskManagerProjects.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    
+                    card.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3 style="margin: 0; color: #333;">${project.name}</h3>
+                            <span class="project-status status-${project.status}">${project.status}</span>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em; margin-bottom: 10px;">
+                            Complexity: ${project.complexity}/10 | Created: ${new Date(project.createdAt).toLocaleDateString()}
+                        </div>
+                        <div class="project-agents">
+                            ${(project.agentTypes || []).map(type => 
+                                `<span class="agent-badge">${type}</span>`
+                            ).join('')}
+                        </div>
+                    `;
+                    
+                    grid.appendChild(card);
+                });
             }
 
             simulateActivity() {
@@ -1552,6 +1867,9 @@
             
             // Make dashboard accessible globally for debugging
             window.dashboard = dashboard;
+            
+            // Initialize navigation
+            setupNavigation();
             
             console.log('Agent Dashboard initialized');
         });
@@ -1724,6 +2042,126 @@ Active Namespaces:
                 quickDatePicker.valueAsDate = new Date();
             }
         });
+        
+        // Utility functions for project management
+        function showCreateProject() {
+            const requirements = prompt('Enter project requirements:', 'Build a React dashboard with API integration');
+            if (requirements && requirements.trim()) {
+                createProject(requirements.trim());
+            }
+        }
+        
+        async function createProject(requirements) {
+            try {
+                // Show loading state
+                const btn = document.querySelector('.create-project-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Creating...';
+                btn.disabled = true;
+                
+                // Add new project to dashboard
+                const newProject = {
+                    name: requirements.split(' ').slice(0, 6).join(' '),
+                    status: 'planning',
+                    agentTypes: determineAgentTypes(requirements),
+                    complexity: assessComplexity(requirements),
+                    createdAt: new Date().toISOString()
+                };
+                
+                setTimeout(() => {
+                    window.dashboard.taskManagerProjects.unshift(newProject);
+                    window.dashboard.renderProjects();
+                    window.dashboard.updateStats();
+                    
+                    // Reset button
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    
+                    // Show success message
+                    alert(`Project "${newProject.name}" created successfully with ${newProject.agentTypes.length} agents!`);
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error creating project:', error);
+                alert('Error creating project. Please try again.');
+            }
+        }
+        
+        function determineAgentTypes(requirements) {
+            const agents = ['planner'];
+            const text = requirements.toLowerCase();
+            
+            if (text.includes('react') || text.includes('frontend') || text.includes('ui')) {
+                agents.push('frontend-dev');
+            }
+            if (text.includes('api') || text.includes('backend') || text.includes('server')) {
+                agents.push('backend-dev');
+            }
+            if (text.includes('test') || text.includes('testing')) {
+                agents.push('tester');
+            }
+            if (text.includes('deploy') || text.includes('ci/cd')) {
+                agents.push('cicd-engineer');
+            }
+            
+            agents.push('coder', 'reviewer');
+            return [...new Set(agents)];
+        }
+        
+        function assessComplexity(requirements) {
+            const keywords = {
+                simple: ['simple', 'basic', 'minimal'],
+                medium: ['api', 'database', 'auth', 'integration'],
+                complex: ['microservices', 'distributed', 'real-time', 'ml', 'ai']
+            };
+            
+            const text = requirements.toLowerCase();
+            if (keywords.complex.some(k => text.includes(k))) return 8;
+            if (keywords.medium.some(k => text.includes(k))) return 5;
+            return 3;
+        }
+        
+        function openTaskManagerDashboard() {
+            window.open('file:///Users/Danallovertheplace/pachacuti/task-manager/dashboard/task-manager.html', '_blank');
+        }
+        
+        // Navigation functionality
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Handle navigation
+                    const section = this.getAttribute('href').substring(1);
+                    scrollToSection(section);
+                });
+            });
+        }
+        
+        function scrollToSection(section) {
+            const sectionMap = {
+                'overview': 'stats-bar',
+                'projects': 'projectsSection', 
+                'agents': 'agentsGrid',
+                'shell': 'integration-panel',
+                'daily': 'daily-report-section'
+            };
+            
+            const targetId = sectionMap[section];
+            if (targetId) {
+                const element = document.getElementById(targetId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
     </script>
 </body>
 </html>
