@@ -16,17 +16,13 @@ import {
   FormControl,
   Select,
   MenuItem,
-  InputLabel
+  InputLabel,
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  Divider
 } from '@mui/material';
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineOppositeContent
-} from '@mui/lab';
 import {
   Terminal as TerminalIcon,
   CheckCircle as SuccessIcon,
@@ -95,14 +91,6 @@ const SessionTimeline = ({ sessionId, commands = [], autoRefresh = false }) => {
 
   const formatTime = (timestamp) => {
     return new Date(timestamp).toLocaleTimeString();
-  };
-
-  const formatDate = (timestamp) => {
-    return new Date(timestamp).toLocaleDateString();
-  };
-
-  const getTimelineDotColor = (exitCode) => {
-    return exitCode === 0 ? 'success' : 'error';
   };
 
   const getCommandCategory = (command) => {
@@ -200,121 +188,110 @@ const SessionTimeline = ({ sessionId, commands = [], autoRefresh = false }) => {
         </Box>
       </Paper>
 
-      {/* Timeline */}
+      {/* Timeline List */}
       <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
-        <Timeline position="right" sx={{ p: 0 }}>
+        <List sx={{ p: 0 }}>
           {filteredCommands.map((command, index) => {
             const isExpanded = expandedItems.has(index);
             const category = getCommandCategory(command.command);
             const hasOutput = command.output && command.output.trim().length > 0;
 
             return (
-              <TimelineItem key={command.id || index}>
-                <TimelineOppositeContent sx={{ maxWidth: '200px', pr: 2 }}>
-                  <Typography variant="caption" color="textSecondary">
-                    {formatTime(command.timestamp)}
-                  </Typography>
-                  {command.duration && (
-                    <Typography variant="caption" display="block" color="textSecondary">
-                      <TimeIcon sx={{ fontSize: 12, mr: 0.5 }} />
-                      {formatDuration(command.duration)}
-                    </Typography>
-                  )}
-                  
-                  <Chip
-                    label={category}
-                    size="small"
+              <React.Fragment key={command.id || index}>
+                <ListItem sx={{ flexDirection: 'column', alignItems: 'stretch', p: 0 }}>
+                  <Card
                     sx={{
-                      mt: 1,
-                      fontSize: '0.7rem',
-                      height: 20,
-                      bgcolor: getCategoryColor(category),
-                      color: 'white'
-                    }}
-                  />
-                </TimelineOppositeContent>
-
-                <TimelineSeparator>
-                  <TimelineDot 
-                    color={getTimelineDotColor(command.exit_code)}
-                    sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      width: 40,
-                      height: 40
-                    }}
-                  >
-                    {command.exit_code === 0 ? (
-                      <SuccessIcon fontSize="small" />
-                    ) : (
-                      <ErrorIcon fontSize="small" />
-                    )}
-                  </TimelineDot>
-                  {index < filteredCommands.length - 1 && <TimelineConnector />}
-                </TimelineSeparator>
-
-                <TimelineContent>
-                  <Paper 
-                    elevation={2}
-                    sx={{ 
-                      p: 2,
+                      mb: 2,
+                      mx: 2,
                       bgcolor: '#2a2a2a',
                       border: '1px solid #444',
-                      mb: 2
+                      '&:hover': {
+                        border: '1px solid #00ff41'
+                      }
                     }}
                   >
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <Typography variant="body2" sx={{ flexGrow: 1, color: '#00ff41' }}>
+                    <CardContent>
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+                          {command.exit_code === 0 ? (
+                            <SuccessIcon sx={{ color: '#4caf50', mr: 1 }} />
+                          ) : (
+                            <ErrorIcon sx={{ color: '#f44336', mr: 1 }} />
+                          )}
+                          
+                          <Typography variant="caption" sx={{ color: '#666', mr: 2 }}>
+                            {formatTime(command.timestamp)}
+                          </Typography>
+                          
+                          {command.duration && (
+                            <Chip
+                              icon={<TimeIcon />}
+                              label={formatDuration(command.duration)}
+                              size="small"
+                              sx={{ mr: 1 }}
+                            />
+                          )}
+                          
+                          <Chip
+                            label={category}
+                            size="small"
+                            sx={{
+                              bgcolor: getCategoryColor(category),
+                              color: 'white'
+                            }}
+                          />
+                        </Box>
+                        
+                        {hasOutput && (
+                          <IconButton 
+                            size="small" 
+                            onClick={() => toggleExpanded(index)}
+                          >
+                            {isExpanded ? 
+                              <CollapseIcon fontSize="small" /> : 
+                              <ExpandIcon fontSize="small" />
+                            }
+                          </IconButton>
+                        )}
+                      </Box>
+
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                          color: '#00ff41'
+                        }}
+                      >
                         $ {command.command}
                       </Typography>
-                      
-                      {hasOutput && (
-                        <IconButton 
-                          size="small" 
-                          onClick={() => toggleExpanded(index)}
-                        >
-                          {isExpanded ? 
-                            <CollapseIcon fontSize="small" /> : 
-                            <ExpandIcon fontSize="small" />
-                          }
-                        </IconButton>
-                      )}
-                    </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                      <Chip
-                        label={command.exit_code === 0 ? 'Success' : `Error (${command.exit_code})`}
-                        size="small"
-                        color={command.exit_code === 0 ? 'success' : 'error'}
-                        variant="outlined"
-                      />
-                      
+                      {hasOutput && (
+                        <Collapse in={isExpanded}>
+                          <Box sx={{ mt: 2 }}>
+                            <CommandBlock
+                              command={command.command}
+                              output={command.output}
+                              exitCode={command.exit_code}
+                              duration={command.duration}
+                              expanded={true}
+                              showActions={false}
+                            />
+                          </Box>
+                        </Collapse>
+                      )}
+
                       {command.working_directory && (
-                        <Typography variant="caption" color="textSecondary">
+                        <Typography variant="caption" color="textSecondary" sx={{ mt: 2, display: 'block' }}>
                           {command.working_directory}
                         </Typography>
                       )}
-                    </Box>
-
-                    {hasOutput && (
-                      <Collapse in={isExpanded}>
-                        <CommandBlock
-                          command={command.command}
-                          output={command.output}
-                          exitCode={command.exit_code}
-                          duration={command.duration}
-                          expanded={true}
-                          showActions={false}
-                        />
-                      </Collapse>
-                    )}
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
+                    </CardContent>
+                  </Card>
+                </ListItem>
+              </React.Fragment>
             );
           })}
-        </Timeline>
+        </List>
       </Box>
     </Box>
   );

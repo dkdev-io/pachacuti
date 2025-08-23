@@ -1,0 +1,3 @@
+#!/bin/bash
+# Quick launcher for Claude Code Performance Monitor
+exec /Users/Danallovertheplace/pachacuti/scripts/claude-performance-monitor.sh

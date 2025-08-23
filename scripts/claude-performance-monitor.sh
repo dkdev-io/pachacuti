@@ -235,7 +235,15 @@ main() {
         
         # Display metrics
         echo -e "${BOLD}${CYAN}SYSTEM RESOURCES:${NC}"
-        echo -e "├─ ${BOLD}CPU Usage:${NC}      ${cpu_color}${cpu_usage}%${NC} ${cpu_color}$(printf '█%.0s' $(seq 1 $((cpu_usage/5))))${NC}"
+        cpu_int=${cpu_usage%.*}
+        if [ -z "$cpu_int" ]; then cpu_int=0; fi
+        bar_length=$((cpu_int/5))
+        if [ $bar_length -gt 0 ]; then
+            cpu_bar=$(printf '█%.0s' $(seq 1 $bar_length))
+        else
+            cpu_bar=""
+        fi
+        echo -e "├─ ${BOLD}CPU Usage:${NC}      ${cpu_color}${cpu_usage}%${NC} ${cpu_color}${cpu_bar}${NC}"
         echo -e "├─ ${BOLD}Memory:${NC}         ${mem_color}${mem_percent}%${NC} ($(format_size $mem_used_mb) / $(format_size $total_ram_mb))"
         echo -e "│  ├─ Free:       $(format_size $free_mb)"
         echo -e "│  ├─ Compressed: $(format_size $compressed_mb)"
