@@ -8,13 +8,6 @@ import {
   Box,
   Paper,
   Typography,
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineOppositeContent,
   Collapse,
   IconButton,
   Chip,
@@ -25,6 +18,15 @@ import {
   MenuItem,
   InputLabel
 } from '@mui/material';
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineOppositeContent
+} from '@mui/lab';
 import {
   Terminal as TerminalIcon,
   CheckCircle as SuccessIcon,
