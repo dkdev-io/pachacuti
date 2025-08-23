@@ -1,0 +1,84 @@
+{
+  "date": "2025-08-23T18:01:34.914Z",
+  "projects": [
+    {
+      "path": "/Users/Danallovertheplace/pachacuti",
+      "name": "pachacuti",
+      "type": "unknown",
+      "language": "unknown",
+      "lastModified": "2025-08-23T18:01:25.000Z",
+      "status": "uncommitted-changes",
+      "todoCount": 14,
+      "issues": [
+        "Has uncommitted changes",
+        "14 TODOs/FIXMEs found"
+      ],
+      "metrics": {
+        "fileCount": 10,
+        "totalLines": 0,
+        "testCoverage": "unknown",
+        "complexFiles": [],
+        "duplicateCode": false,
+        "missingTests": [
+          "No test files found"
+        ]
+      },
+      "optimizations": [
+        {
+          "type": "add-tests",
+          "description": "Add test coverage with TDD agents",
+          "impact": "high",
+          "timeEstimate": "30 minutes",
+          "howTo": "Use Task(\"tester\", \"Generate comprehensive test suite\")"
+        },
+        {
+          "type": "commit-changes",
+          "description": "Commit pending changes",
+          "impact": "low",
+          "timeEstimate": "2 minutes",
+          "howTo": "Use git commit workflow with proper message format"
+        },
+        {
+          "type": "complete-todos",
+          "description": "Complete 14 TODOs",
+          "impact": "medium",
+          "timeEstimate": "140 minutes",
+          "howTo": "Use Grep(\"TODO|FIXME\") then Task(\"coder\", \"Complete all TODOs\")"
+        }
+      ],
+      "newFeatures": [],
+      "timeToComplete": 172
+    }
+  ],
+  "recommendations": [
+    {
+      "project": "pachacuti",
+      "type": "add-tests",
+      "description": "Add test coverage with TDD agents",
+      "impact": "high",
+      "timeEstimate": "30 minutes",
+      "implementation": "Use Task(\"tester\", \"Generate comprehensive test suite\")",
+      "priority": "high"
+    },
+    {
+      "project": "pachacuti",
+      "type": "commit-changes",
+      "description": "Commit pending changes",
+      "impact": "low",
+      "timeEstimate": "2 minutes",
+      "implementation": "Use git commit workflow with proper message format",
+      "priority": "urgent"
+    },
+    {
+      "project": "pachacuti",
+      "type": "complete-todos",
+      "description": "Complete 14 TODOs",
+      "impact": "medium",
+      "timeEstimate": "140 minutes",
+      "implementation": "Use Grep(\"TODO|FIXME\") then Task(\"coder\", \"Complete all TODOs\")",
+      "priority": "medium"
+    }
+  ],
+  "quickWins": [],
+  "timeEstimates": {}
+}
