@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pachacuti DevOps - Daily Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(30, 60, 114, 0.1);
+            color: #1e3c72;
+        }
+
+        .nav-link.active {
+            background: #1e3c72;
+            color: white;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Date Selection */
+        .date-selection {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .date-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .date-input-group label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .date-input {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 200px;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.3);
+        }
+
+        /* Report Container */
+        .report-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+        }
+
+        .report-container.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .report-header {
+            border-bottom: 2px solid #e1e5e9;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .report-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .report-date {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Report Grid */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .report-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(30, 60, 114, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(30, 60, 114, 0.1);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        /* Activity Timeline */
+        .timeline-section {
+            margin-top: 2rem;
+        }
+
+        .timeline-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1rem;
+            width: 12px;
+            height: 12px;
+            background: #1e3c72;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-time {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content {
+            color: #333;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .date-picker-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .date-input {
+                width: 100%;
+            }
+
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .report-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="agent-dashboard.html" class="nav-logo">
+                🚀 Pachacuti DevOps
+            </a>
+            <ul class="nav-links">
+                <li><a href="daily-report.html" class="nav-link active">📊 Daily Report</a></li>
+                <li><a href="agent-dashboard.html" class="nav-link">🤖 Dashboard</a></li>
+                <li><a href="#" class="nav-link">📈 Analytics</a></li>
+                <li><a href="#" class="nav-link">⚙️ Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Daily Operations Report</h1>
+            <p>Comprehensive daily analysis of Claude Code agent activities and performance metrics</p>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="date-selection">
+            <div class="date-picker-container">
+                <div class="date-input-group">
+                    <label for="report-date">Select Report Date</label>
+                    <input type="date" id="report-date" class="date-input" value="">
+                </div>
+                <button class="generate-btn" onclick="generateReport()">
+                    Generate Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Report Container -->
+        <div id="reportContainer" class="report-container">
+            <div class="report-header">
+                <div class="report-title">Daily Report</div>
+                <div class="report-date" id="reportDate"></div>
+            </div>
+
+            <div class="report-grid">
+                <!-- Agent Activity Card -->
+                <div class="report-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">🤖</div>
+                        <div class="card-title">Agent Activity</div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Total Tasks Completed</span>
+                        <span class="metric-value" id="totalTasks">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Active Agents</span>
+                        <span class="metric-value" id="activeAgents">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Success Rate</span>
+                        <span class="metric-value" id="successRate">0%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Average Response Time</span>
+                        <span class="metric-value" id="avgResponseTime">0ms</span>
+                    </div>
+                </div>
+
+                <!-- Token Usage Card -->
+                <div class="report-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;">💰</div>
+                        <div class="card-title">Token Usage</div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Tokens Consumed</span>
+                        <span class="metric-value" id="tokensUsed">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Daily Cost</span>
+                        <span class="metric-value" id="dailyCost">$0.00</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Peak Usage Hour</span>
+                        <span class="metric-value" id="peakHour">--:--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Efficiency Score</span>
+                        <span class="metric-value" id="efficiencyScore">--</span>
+                    </div>
+                </div>
+
+                <!-- System Performance Card -->
+                <div class="report-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white;">⚡</div>
+                        <div class="card-title">System Performance</div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Uptime</span>
+                        <span class="metric-value" id="uptime">0%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Memory Usage</span>
+                        <span class="metric-value" id="memoryUsage">0MB</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">API Calls</span>
+                        <span class="metric-value" id="apiCalls">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Error Rate</span>
+                        <span class="metric-value" id="errorRate">0%</span>
+                    </div>
+                </div>
+
+                <!-- Project Status Card -->
+                <div class="report-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">📁</div>
+                        <div class="card-title">Project Status</div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Active Projects</span>
+                        <span class="metric-value" id="activeProjects">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Commits Today</span>
+                        <span class="metric-value" id="commitsToday">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Files Modified</span>
+                        <span class="metric-value" id="filesModified">0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Code Quality Score</span>
+                        <span class="metric-value" id="codeQuality">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="timeline-section">
+                <div class="timeline-title">📋 Activity Timeline</div>
+                <div class="timeline" id="activityTimeline">
+                    <!-- Timeline items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('report-date').valueAsDate = new Date();
+
+        function generateReport() {
+            const selectedDate = document.getElementById('report-date').value;
+            if (!selectedDate) {
+                alert('Please select a date for the report');
+                return;
+            }
+
+            const reportContainer = document.getElementById('reportContainer');
+            const reportDateElement = document.getElementById('reportDate');
+            
+            // Format date for display
+            const dateObj = new Date(selectedDate);
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            reportDateElement.textContent = formattedDate;
+            
+            // Generate sample data based on selected date
+            generateSampleData(selectedDate);
+            
+            // Show report container with animation
+            reportContainer.classList.add('show');
+        }
+
+        function generateSampleData(selectedDate) {
+            const dateObj = new Date(selectedDate);
+            const dayOfMonth = dateObj.getDate();
+            
+            // Generate realistic sample data based on date
+            const baseMultiplier = (dayOfMonth % 10) + 1;
+            
+            // Update metrics
+            document.getElementById('totalTasks').textContent = (12 + baseMultiplier * 3);
+            document.getElementById('activeAgents').textContent = (3 + Math.floor(baseMultiplier / 2));
+            document.getElementById('successRate').textContent = (85 + (baseMultiplier % 15)) + '%';
+            document.getElementById('avgResponseTime').textContent = (150 + baseMultiplier * 50) + 'ms';
+            
+            document.getElementById('tokensUsed').textContent = ((25 + baseMultiplier * 8) * 1000).toLocaleString();
+            document.getElementById('dailyCost').textContent = '$' + (2.50 + baseMultiplier * 0.75).toFixed(2);
+            document.getElementById('peakHour').textContent = (10 + (baseMultiplier % 8)) + ':00';
+            document.getElementById('efficiencyScore').textContent = (8.5 + (baseMultiplier % 2) * 0.3).toFixed(1) + '/10';
+            
+            document.getElementById('uptime').textContent = (95 + (baseMultiplier % 5)) + '%';
+            document.getElementById('memoryUsage').textContent = (120 + baseMultiplier * 15) + 'MB';
+            document.getElementById('apiCalls').textContent = (450 + baseMultiplier * 75);
+            document.getElementById('errorRate').textContent = (0.5 + baseMultiplier * 0.2).toFixed(1) + '%';
+            
+            document.getElementById('activeProjects').textContent = (2 + Math.floor(baseMultiplier / 3));
+            document.getElementById('commitsToday').textContent = (5 + Math.floor(baseMultiplier / 2));
+            document.getElementById('filesModified').textContent = (8 + baseMultiplier * 2);
+            document.getElementById('codeQuality').textContent = (8.0 + (baseMultiplier % 3) * 0.5).toFixed(1) + '/10';
+            
+            // Generate timeline
+            generateTimeline(selectedDate, baseMultiplier);
+        }
+
+        function generateTimeline(selectedDate, multiplier) {
+            const timeline = document.getElementById('activityTimeline');
+            timeline.innerHTML = '';
+            
+            const activities = [
+                { time: '09:15', content: 'System startup and agent initialization completed' },
+                { time: '09:32', content: `Started processing ${3 + multiplier} concurrent development tasks` },
+                { time: '10:45', content: 'Code review agent completed analysis of pull request #' + (100 + multiplier) },
+                { time: '11:20', content: `Token usage reached ${20 + multiplier * 3}% of daily allocation` },
+                { time: '12:15', content: 'Automated testing suite execution completed with 98% success rate' },
+                { time: '14:30', content: `Performance optimization agent improved response time by ${15 + multiplier * 2}%` },
+                { time: '15:45', content: 'Deployment pipeline triggered for production environment' },
+                { time: '16:20', content: `Successfully committed ${2 + Math.floor(multiplier/2)} code changes to repository` },
+                { time: '17:00', content: 'Daily backup and memory consolidation processes initiated' }
+            ];
+            
+            activities.forEach(activity => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                timelineItem.innerHTML = `
+                    <div class="timeline-time">${activity.time}</div>
+                    <div class="timeline-content">${activity.content}</div>
+                `;
+                timeline.appendChild(timelineItem);
+            });
+        }
+
+        // Auto-generate report for today on page load
+        window.addEventListener('load', function() {
+            setTimeout(generateReport, 500);
+        });
+    </script>
+</body>
+</html>

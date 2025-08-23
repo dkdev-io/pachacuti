@@ -1,1 +1,4 @@
 .swarm/
+session-recorder/data/
+session-recorder/node_modules/
+.claude-flow/
