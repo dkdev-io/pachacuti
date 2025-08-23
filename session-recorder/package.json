@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start-cloud": "SUPABASE_ENABLED=true node index.js",
     "capture": "node lib/session-capture.js",
     "analyze": "node lib/git-analyzer.js",
     "report": "node lib/report-generator.js",
@@ -13,19 +14,26 @@
     "monitor": "node lib/session-monitor.js --watch",
     "daily": "node lib/daily-summary.js",
     "weekly": "node lib/weekly-summary.js",
-    "test": "node tests/test-recorder.js"
+    "test": "node tests/test-recorder.js",
+    "migrate-to-supabase": "node scripts/migrate-to-supabase.js",
+    "dashboard": "node dashboard.js",
+    "supabase-setup": "node scripts/supabase-setup.js",
+    "quick-setup": "./quick-supabase-setup.sh",
+    "extract-supabase": "node lib/supabase-extractor.js --interactive"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.56.0",
     "chokidar": "^3.5.3",
-    "simple-git": "^3.19.1",
-    "sqlite3": "^5.1.6",
+    "dotenv": "^16.3.1",
+    "inquirer": "^9.2.11",
     "lunr": "^2.3.9",
     "markdown-it": "^13.0.1",
-    "node-cron": "^3.0.2",
-    "winston": "^3.10.0",
-    "inquirer": "^9.2.11",
     "moment": "^2.29.4",
-    "dotenv": "^16.3.1"
+    "node-cron": "^3.0.2",
+    "puppeteer": "^24.17.0",
+    "simple-git": "^3.19.1",
+    "sqlite3": "^5.1.6",
+    "winston": "^3.10.0"
   },
   "author": "Pachacuti DevOps",
   "license": "MIT"
