@@ -1,0 +1,48 @@
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:30:15.758Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-23T19:30:15.761Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-23T19:30:15.761Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-23T19:30:15.762Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-23T19:30:15.763Z"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:30:35.090Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-23T19:30:35.093Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-23T19:30:35.093Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-23T19:30:35.093Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-23T19:30:35.093Z"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.204Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.208Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.209Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.209Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.209Z"}
+{"level":"info","message":"✅ Loaded 0 sessions","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.209Z"}
+{"level":"info","message":"✅ Session Manager initialized","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.210Z"}
+{"level":"info","message":"🤖 Initializing AI Search Controller...","service":"shell-viewer","timestamp":"2025-08-23T19:30:59.210Z"}
+{"code":"invalid_api_key","error":{"code":"invalid_api_key","message":"Incorrect API key provided: your_ope************here. You can find your API key at https://platform.openai.com/account/api-keys.","param":null,"type":"invalid_request_error"},"headers":{"alt-svc":"h3=\":443\"; ma=86400","cf-cache-status":"DYNAMIC","cf-ray":"973d0713eafec2fd-IAH","connection":"keep-alive","content-length":"253","content-type":"application/json","date":"Sat, 23 Aug 2025 19:31:00 GMT","openai-processing-ms":"4","openai-version":"2020-10-01","server":"cloudflare","set-cookie":"__cf_bm=zq.HQt.rZxGyamxQNtFTZJ1._iU3nCPDg8Y6kGb.fu0-1755977460-1.0.1.1-2znovTNDdz.WI1xBVzMgM7_E7AXYThjROMojalThPRdIFiPHqc4JhsW109JwSeP51is749kombPwT49HYJe2qvGKNBMb0cGNJX3FvV8ACaU; path=/; expires=Sat, 23-Aug-25 20:01:00 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None, _cfuvid=.yUQW3I30brnM80le19mLkw.vEBqSVaNig7RSZ8R6v4-1755977460159-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None","strict-transport-security":"max-age=31536000; includeSubDomains; preload","www-authenticate":"Bearer realm=\"OpenAI API\"","x-content-type-options":"nosniff","x-request-id":"bc35e6602d7b5c740814ef8b68baee1a"},"level":"error","message":"❌ OpenAI initialization failed: 401 Incorrect API key provided: your_ope************here. You can find your API key at https://platform.openai.com/account/api-keys.","param":null,"request_id":"bc35e6602d7b5c740814ef8b68baee1a","service":"shell-viewer","stack":"Error: 401 Incorrect API key provided: your_ope************here. You can find your API key at https://platform.openai.com/account/api-keys.\n    at APIError.generate (/Users/Danallovertheplace/pachacuti/shell-viewer/backend/node_modules/openai/error.js:48:20)\n    at OpenAI.makeStatusError (/Users/Danallovertheplace/pachacuti/shell-viewer/backend/node_modules/openai/core.js:302:33)\n    at OpenAI.makeRequest (/Users/Danallovertheplace/pachacuti/shell-viewer/backend/node_modules/openai/core.js:346:30)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async AISearchController.initialize (/Users/Danallovertheplace/pachacuti/shell-viewer/backend/lib/ai-search-controller.js:65:7)\n    at async PachacutiShellViewerServer.start (/Users/Danallovertheplace/pachacuti/shell-viewer/backend/server.js:259:7)","status":401,"timestamp":"2025-08-23T19:30:59.909Z","type":"invalid_request_error"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.276Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.280Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.280Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.280Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.280Z"}
+{"level":"info","message":"✅ Loaded 0 sessions","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.281Z"}
+{"level":"info","message":"✅ Session Manager initialized","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.281Z"}
+{"level":"info","message":"🤖 Initializing AI Search Controller...","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.281Z"}
+{"level":"warn","message":"⚠️  OpenAI API key not found - AI features will be disabled","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.281Z"}
+{"level":"info","message":"🚀 Pachacuti Shell Viewer Server running on port 3001","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.282Z"}
+{"level":"info","message":"📊 Dashboard: http://localhost:3001","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.282Z"}
+{"level":"info","message":"🤖 AI Search: http://localhost:3001/api/search","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.282Z"}
+{"level":"info","message":"💻 Web Terminal: ws://localhost:3001","service":"shell-viewer","timestamp":"2025-08-23T19:31:15.282Z"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:31:31.266Z"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:31:37.099Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-23T19:31:37.102Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-23T19:31:37.102Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-23T19:31:37.103Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-23T19:31:37.103Z"}
+{"level":"info","message":"✅ Loaded 0 sessions","service":"shell-viewer","timestamp":"2025-08-23T19:31:37.103Z"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-23T19:31:56.250Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-23T19:31:56.252Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-23T19:31:56.253Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-23T19:31:56.253Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-23T19:31:56.253Z"}
+{"level":"info","message":"✅ Loaded 0 sessions","service":"shell-viewer","timestamp":"2025-08-23T19:31:56.254Z"}
+{"ip":"::1","level":"info","message":"GET /","service":"shell-viewer","timestamp":"2025-08-23T19:32:52.311Z","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"GET /.well-known/appspecific/com.chrome.devtools.json","service":"shell-viewer","timestamp":"2025-08-23T19:33:12.397Z","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"GET /","service":"shell-viewer","timestamp":"2025-08-23T19:34:50.523Z","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"}

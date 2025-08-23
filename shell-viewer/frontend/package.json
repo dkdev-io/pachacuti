@@ -23,7 +23,7 @@
     "axios": "^1.5.1",
     "date-fns": "^2.30.0",
     "react-hotkeys-hook": "^4.4.1",
-    "react-split-pane": "^0.1.92",
+    "react-split": "^2.0.14",
     "react-virtualized": "^9.22.5",
     "fuse.js": "^6.6.2",
     "highlight.js": "^11.9.0"
