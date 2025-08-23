@@ -25,7 +25,7 @@ class PachacutiShellViewerServer {
     this.server = http.createServer(this.app);
     this.io = socketIo(this.server, {
       cors: {
-        origin: process.env.FRONTEND_URL || "http://localhost:3000",
+        origin: process.env.FRONTEND_URL || "http://localhost:3002",
         methods: ["GET", "POST"]
       }
     });
@@ -47,7 +47,7 @@ class PachacutiShellViewerServer {
     this.app.use(helmet());
     this.app.use(compression());
     this.app.use(cors({
-      origin: process.env.FRONTEND_URL || "http://localhost:3000",
+      origin: process.env.FRONTEND_URL || "http://localhost:3002",
       credentials: true
     }));
     this.app.use(express.json({ limit: '10mb' }));
