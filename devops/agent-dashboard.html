@@ -723,6 +723,10 @@
                 <div class="label">Tasks Completed</div>
             </div>
             <div class="stat-item">
+                <div class="value" id="linesWritten">0</div>
+                <div class="label">Lines Written</div>
+            </div>
+            <div class="stat-item">
                 <div class="value" id="uptime">0h</div>
                 <div class="label">Session Time</div>
             </div>
@@ -967,10 +971,12 @@
                 role: 'DevOps CTO',
                 status: 'active',
                 icon: '🤖',
-                currentTask: 'Optimizing approval system',
+                currentTask: 'Managing DevOps operations',
                 filesModified: 15,
+                linesWritten: 2847,
                 timeActive: '2h 45m',
-                lastAction: 'Created auto-commit system',
+                lastAction: 'Created daily report system',
+                lastActiveTime: Date.now() - 300000, // 5 minutes ago
                 metrics: {
                     commits: 3,
                     reviews: 1,
@@ -984,11 +990,13 @@
                 status: 'active',
                 icon: '💻',
                 currentTask: 'Writing dashboard components',
-                filesModified: 3,
+                filesModified: 8,
+                linesWritten: 1456,
                 timeActive: '45m',
-                lastAction: 'Updated HTML structure',
+                lastAction: 'Updated navigation structure',
+                lastActiveTime: Date.now() - 180000, // 3 minutes ago
                 metrics: {
-                    commits: 1,
+                    commits: 2,
                     reviews: 0,
                     deploys: 0
                 }
@@ -999,10 +1007,12 @@
                 role: 'Quality Assurance',
                 status: 'idle',
                 icon: '🧪',
-                currentTask: 'Waiting for tests',
+                currentTask: 'Waiting for new tests',
                 filesModified: 0,
+                linesWritten: 0,
                 timeActive: '10m',
-                lastAction: 'Completed test suite',
+                lastAction: 'Completed test suite validation',
+                lastActiveTime: Date.now() - 3600000, // 1 hour ago
                 metrics: {
                     commits: 0,
                     reviews: 2,
@@ -1013,12 +1023,14 @@
                 id: 'reviewer',
                 name: 'Review Agent',
                 role: 'Code Review',
-                status: 'active',
+                status: 'idle',
                 icon: '🔍',
-                currentTask: 'Reviewing PR #42',
+                currentTask: 'Monitoring for new PRs',
                 filesModified: 0,
+                linesWritten: 0,
                 timeActive: '30m',
-                lastAction: 'Approved changes',
+                lastAction: 'Approved PR #42',
+                lastActiveTime: Date.now() - 1800000, // 30 minutes ago
                 metrics: {
                     commits: 0,
                     reviews: 5,
@@ -1135,6 +1147,10 @@
                                 <span class="detail-value">${agent.filesModified}</span>
                             </div>
                             <div class="detail-row">
+                                <span class="detail-label">Lines Written:</span>
+                                <span class="detail-value">${(agent.linesWritten || 0).toLocaleString()}</span>
+                            </div>
+                            <div class="detail-row">
                                 <span class="detail-label">Time Active:</span>
                                 <span class="detail-value">${agent.timeActive}</span>
                             </div>
@@ -1174,9 +1190,17 @@
             }
 
             updateStats() {
+                // Update agent statuses based on recent activity
+                this.agents.forEach(agent => {
+                    const timeSinceActive = Date.now() - agent.lastActiveTime;
+                    const isRecentlyActive = timeSinceActive < 600000; // 10 minutes
+                    agent.status = isRecentlyActive ? 'active' : 'idle';
+                });
+
                 const activeAgents = this.agents.filter(a => a.status === 'active').length;
                 const totalProjects = this.projects.length;
                 const filesModified = this.agents.reduce((sum, a) => sum + a.filesModified, 0);
+                const linesWritten = this.agents.reduce((sum, a) => sum + (a.linesWritten || 0), 0);
                 const tasksCompleted = this.agents.reduce((sum, a) => sum + (a.metrics?.commits || 0), 0);
                 
                 // Calculate uptime
@@ -1189,6 +1213,7 @@
                 document.getElementById('activeAgents').textContent = activeAgents;
                 document.getElementById('totalProjects').textContent = totalProjects;
                 document.getElementById('filesModified').textContent = filesModified;
+                document.getElementById('linesWritten').textContent = linesWritten.toLocaleString();
                 document.getElementById('tasksCompleted').textContent = tasksCompleted;
                 document.getElementById('uptime').textContent = uptime;
             }
