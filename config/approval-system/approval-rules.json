@@ -1,0 +1,269 @@
+{
+  "version": "2.0.0",
+  "lastUpdated": "2025-08-23",
+  "description": "Pachacuti Approval Optimization System - Smart filtering for autonomous development",
+  
+  "autoApprove": {
+    "gitOperations": {
+      "enabled": true,
+      "commands": [
+        "git status",
+        "git diff",
+        "git log",
+        "git branch",
+        "git checkout",
+        "git pull",
+        "git fetch",
+        "git add",
+        "git commit",
+        "git push",
+        "git stash",
+        "git tag",
+        "git remote",
+        "git show",
+        "git blame",
+        "git reflog"
+      ],
+      "description": "All git operations are auto-approved for seamless version control"
+    },
+    
+    "developmentCommands": {
+      "enabled": true,
+      "patterns": [
+        "npm run build",
+        "npm run test",
+        "npm run lint",
+        "npm run dev",
+        "npm run start",
+        "npm run format",
+        "npm test",
+        "npm run typecheck",
+        "npm run watch",
+        "yarn build",
+        "yarn test",
+        "yarn lint",
+        "pnpm build",
+        "pnpm test"
+      ],
+      "conditionalApproval": {
+        "npmInstall": {
+          "autoApprove": "whenPackageJsonUnchanged",
+          "requireApproval": "whenAddingNewDependencies"
+        }
+      }
+    },
+    
+    "fileOperations": {
+      "enabled": true,
+      "autoApprovePaths": [
+        "src/**/*",
+        "components/**/*",
+        "tests/**/*",
+        "test/**/*",
+        "__tests__/**/*",
+        "docs/**/*.md",
+        "examples/**/*",
+        "scripts/**/*.js",
+        "lib/**/*",
+        "app/**/*",
+        "pages/**/*",
+        "styles/**/*",
+        "public/assets/**/*"
+      ],
+      "autoApproveActions": [
+        "createFile",
+        "editFile",
+        "formatCode",
+        "addComments",
+        "fixBugs",
+        "refactorCode",
+        "updateStyles",
+        "addTests",
+        "updateDocumentation"
+      ]
+    },
+    
+    "readOperations": {
+      "enabled": true,
+      "alwaysAutoApprove": true,
+      "operations": [
+        "fileAnalysis",
+        "codeReview",
+        "projectStructureExamination",
+        "documentationReading",
+        "dependencyChecking",
+        "searchOperations",
+        "grepCommands",
+        "findCommands"
+      ]
+    },
+    
+    "routineOperations": {
+      "enabled": true,
+      "operations": [
+        "codeFormatting",
+        "linting",
+        "prettierFix",
+        "eslintFix",
+        "importOrganization",
+        "removeUnusedImports",
+        "typeChecking",
+        "testExecution",
+        "coverageReports"
+      ]
+    }
+  },
+  
+  "requireApproval": {
+    "critical": true,
+    "categories": {
+      "systemConfiguration": {
+        "severity": "high",
+        "files": [
+          "package.json",
+          "package-lock.json",
+          "yarn.lock",
+          "pnpm-lock.yaml",
+          ".env",
+          ".env.*",
+          "*.config.js",
+          "*.config.ts",
+          "webpack.config.*",
+          "babel.config.*",
+          "tsconfig.json",
+          "jest.config.*",
+          ".eslintrc.*",
+          ".prettierrc.*"
+        ],
+        "actions": [
+          "addDependency",
+          "removeDependency",
+          "updateDependency",
+          "changeConfiguration",
+          "modifyBuildProcess"
+        ]
+      },
+      
+      "externalIntegrations": {
+        "severity": "high",
+        "patterns": [
+          "apiCallsToNewServices",
+          "databaseSchemaChanges",
+          "webhookSetup",
+          "environmentVariableChanges",
+          "authenticationChanges",
+          "paymentIntegrations",
+          "thirdPartyServices"
+        ]
+      },
+      
+      "architectureChanges": {
+        "severity": "medium",
+        "patterns": [
+          "majorRefactoring",
+          "fileRestructuring",
+          "changingBuildProcesses",
+          "addingMajorFeatures",
+          "deploymentConfiguration",
+          "ciCdPipeline",
+          "dockerConfiguration",
+          "kubernetesConfig"
+        ]
+      },
+      
+      "securitySensitive": {
+        "severity": "critical",
+        "patterns": [
+          "authenticationLogic",
+          "authorizationRules",
+          "encryptionChanges",
+          "secretsManagement",
+          "apiKeyHandling",
+          "sessionManagement",
+          "corsConfiguration"
+        ]
+      }
+    }
+  },
+  
+  "batchOperations": {
+    "enabled": true,
+    "groupSimilarOperations": true,
+    "maxBatchSize": 50,
+    "autoApproveBatches": [
+      "multipleFileCreation",
+      "bulkCodeFormatting",
+      "testSuiteCreation",
+      "documentationUpdates",
+      "stylingChanges"
+    ]
+  },
+  
+  "autonomousSession": {
+    "enabled": true,
+    "defaultDuration": "2hours",
+    "settings": {
+      "silentMode": true,
+      "autoApproveRoutine": true,
+      "promptOnlyForCritical": true,
+      "batchNotifications": true,
+      "summaryAtEnd": true
+    },
+    "triggers": [
+      "focusMode",
+      "deepWork",
+      "implementationPhase",
+      "bugFixingSession",
+      "testingPhase"
+    ]
+  },
+  
+  "contextAwareRules": {
+    "enabled": true,
+    "rules": [
+      {
+        "context": "testFile",
+        "pattern": "**/*.test.*",
+        "approval": "autoApprove"
+      },
+      {
+        "context": "documentation",
+        "pattern": "**/*.md",
+        "approval": "autoApprove"
+      },
+      {
+        "context": "configuration",
+        "pattern": "**/*.config.*",
+        "approval": "requireApproval"
+      },
+      {
+        "context": "environmentFile",
+        "pattern": ".env*",
+        "approval": "alwaysRequireApproval"
+      },
+      {
+        "context": "productionCode",
+        "pattern": "**/production/**",
+        "approval": "requireApproval"
+      }
+    ]
+  },
+  
+  "smartFiltering": {
+    "enabled": true,
+    "riskAssessment": {
+      "lowRisk": {
+        "threshold": 0.2,
+        "action": "autoApprove"
+      },
+      "mediumRisk": {
+        "threshold": 0.6,
+        "action": "contextualApproval"
+      },
+      "highRisk": {
+        "threshold": 0.8,
+        "action": "requireApproval"
+      }
+    }
+  }
+}

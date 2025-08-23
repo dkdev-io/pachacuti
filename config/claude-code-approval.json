@@ -1,0 +1,248 @@
+{
+  "version": "1.0.0",
+  "description": "Smart Auto-Approval Configuration for Claude Code",
+  "lastUpdated": "2025-08-23",
+  
+  "autoApprove": {
+    "enabled": true,
+    "logLevel": "silent",
+    
+    "gitOperations": {
+      "alwaysApprove": [
+        "git status",
+        "git diff",
+        "git log",
+        "git branch",
+        "git remote",
+        "git show",
+        "git config --get",
+        "git rev-parse",
+        "git ls-files",
+        "git describe"
+      ],
+      "conditionalApprove": {
+        "git add": {
+          "approve": true,
+          "unless": ["*.env", "*.secret", "*.key", "*.pem"]
+        },
+        "git commit": {
+          "approve": true,
+          "maxFiles": 50
+        },
+        "git push": {
+          "approve": true,
+          "branches": ["feature/*", "fix/*", "chore/*"],
+          "requireApproval": ["main", "master", "production"]
+        },
+        "git pull": {
+          "approve": true
+        },
+        "git checkout": {
+          "approve": true,
+          "requireApproval": ["main", "master", "production"]
+        }
+      }
+    },
+    
+    "npmOperations": {
+      "alwaysApprove": [
+        "npm run build",
+        "npm run test",
+        "npm run lint",
+        "npm run dev",
+        "npm run start",
+        "npm run typecheck",
+        "npm run format",
+        "npm test",
+        "npm ls",
+        "npm outdated",
+        "npm audit"
+      ],
+      "conditionalApprove": {
+        "npm install": {
+          "approve": "onlyIfPackageJsonUnchanged",
+          "requireApproval": ["newPackages", "majorVersionChanges"]
+        },
+        "npm update": {
+          "approve": false
+        },
+        "npm uninstall": {
+          "approve": false
+        }
+      }
+    },
+    
+    "fileOperations": {
+      "autoApprovePaths": [
+        "src/**/*",
+        "tests/**/*",
+        "test/**/*",
+        "__tests__/**/*",
+        "docs/**/*.md",
+        "examples/**/*",
+        "components/**/*",
+        "utils/**/*",
+        "lib/**/*",
+        "assets/**/*",
+        "public/**/*"
+      ],
+      "requireApprovalPaths": [
+        "*.env*",
+        "*.secret*",
+        "package.json",
+        "package-lock.json",
+        "yarn.lock",
+        "pnpm-lock.yaml",
+        ".github/workflows/*",
+        "Dockerfile*",
+        "docker-compose*",
+        "*.config.js",
+        "*.config.ts",
+        "database/**/*",
+        "migrations/**/*",
+        "seeds/**/*",
+        ".gitignore",
+        "vercel.json",
+        "netlify.toml",
+        "nginx.conf"
+      ],
+      "autoApproveActions": [
+        "read",
+        "format",
+        "lint-fix",
+        "add-comments",
+        "refactor-within-file",
+        "fix-typos",
+        "update-imports",
+        "add-types"
+      ]
+    },
+    
+    "bashCommands": {
+      "alwaysApprove": [
+        "ls",
+        "pwd",
+        "echo",
+        "cat",
+        "grep",
+        "find",
+        "which",
+        "node -v",
+        "npm -v",
+        "yarn -v",
+        "python --version",
+        "mkdir -p",
+        "touch",
+        "mv",
+        "cp"
+      ],
+      "patterns": {
+        "testing": "^(npm|yarn|pnpm) (run )?(test|jest|mocha|vitest)",
+        "linting": "^(npm|yarn|pnpm) run (lint|eslint|prettier)",
+        "building": "^(npm|yarn|pnpm) run (build|compile|bundle)",
+        "development": "^(npm|yarn|pnpm) run (dev|start|serve)"
+      },
+      "requireApproval": [
+        "rm -rf",
+        "chmod",
+        "chown",
+        "sudo",
+        "curl",
+        "wget",
+        "ssh",
+        "scp"
+      ]
+    }
+  },
+  
+  "riskAssessment": {
+    "lowRisk": {
+      "autoApprove": true,
+      "criteria": [
+        "readOnlyOperations",
+        "testExecution",
+        "codeFormatting",
+        "documentationUpdates",
+        "bugFixesInOwnCode",
+        "addingTests"
+      ]
+    },
+    "mediumRisk": {
+      "autoApprove": true,
+      "notifyAfter": true,
+      "criteria": [
+        "refactoringExistingCode",
+        "addingNewFeatures",
+        "updatingDependencies",
+        "modifyingTests"
+      ]
+    },
+    "highRisk": {
+      "autoApprove": false,
+      "requireExplicitApproval": true,
+      "criteria": [
+        "modifyingConfiguration",
+        "changingEnvironmentVariables",
+        "alteringDatabaseSchema",
+        "modifyingAuthenticationLogic",
+        "deploymentChanges",
+        "deletingFiles",
+        "modifyingCICDPipelines"
+      ]
+    }
+  },
+  
+  "batchOperations": {
+    "enabled": true,
+    "groupSimilarRequests": true,
+    "batchTimeout": 2000,
+    "rules": {
+      "gitWorkflow": {
+        "pattern": ["git add", "git commit", "git push"],
+        "autoApprove": true,
+        "summarize": "Standard git workflow"
+      },
+      "testAndBuild": {
+        "pattern": ["npm test", "npm run build"],
+        "autoApprove": true,
+        "summarize": "Test and build workflow"
+      },
+      "codeQuality": {
+        "pattern": ["npm run lint", "npm run format", "npm run typecheck"],
+        "autoApprove": true,
+        "summarize": "Code quality checks"
+      }
+    }
+  },
+  
+  "notifications": {
+    "mode": "smart",
+    "rules": {
+      "alwaysSilent": [
+        "git status",
+        "ls",
+        "pwd",
+        "reading files"
+      ],
+      "summarizeAfterCompletion": [
+        "batch operations",
+        "auto-approved workflows",
+        "routine maintenance"
+      ],
+      "immediateNotification": [
+        "errors",
+        "security warnings",
+        "manual approval required"
+      ]
+    }
+  },
+  
+  "overrides": {
+    "enabled": true,
+    "commands": {
+      "forceApprove": "APPROVE_ALL=true",
+      "forcePrompt": "PROMPT_ALL=true",
+      "silentMode": "SILENT=true"
+    }
+  }
+}
