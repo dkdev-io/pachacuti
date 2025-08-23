@@ -1,0 +1,32 @@
+{
+  "name": "pachacuti-session-recorder",
+  "version": "1.0.0",
+  "description": "Claude Code Session Recording System - Second Brain for Pachacuti Development",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "capture": "node lib/session-capture.js",
+    "analyze": "node lib/git-analyzer.js",
+    "report": "node lib/report-generator.js",
+    "search": "node lib/knowledge-search.js",
+    "recover": "node lib/history-recovery.js",
+    "monitor": "node lib/session-monitor.js --watch",
+    "daily": "node lib/daily-summary.js",
+    "weekly": "node lib/weekly-summary.js",
+    "test": "node tests/test-recorder.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "simple-git": "^3.19.1",
+    "sqlite3": "^5.1.6",
+    "lunr": "^2.3.9",
+    "markdown-it": "^13.0.1",
+    "node-cron": "^3.0.2",
+    "winston": "^3.10.0",
+    "inquirer": "^9.2.11",
+    "moment": "^2.29.4",
+    "dotenv": "^16.3.1"
+  },
+  "author": "Pachacuti DevOps",
+  "license": "MIT"
+}
