@@ -420,6 +420,281 @@
             font-size: 0.9em;
             line-height: 1.4;
         }
+
+        .token-billing-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .billing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .billing-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .billing-card:hover {
+            border-color: #28a745;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.15);
+        }
+
+        .billing-card.current-usage:hover {
+            border-color: #007bff;
+        }
+
+        .billing-card.cost-breakdown:hover {
+            border-color: #ffc107;
+        }
+
+        .billing-card.daily-usage:hover {
+            border-color: #17a2b8;
+        }
+
+        .billing-card.usage-alerts:hover {
+            border-color: #dc3545;
+        }
+
+        .billing-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .billing-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .billing-info {
+            flex-grow: 1;
+        }
+
+        .billing-info h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .billing-period {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .usage-percentage {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .total-cost {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .trend-indicator {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .trend-indicator.up {
+            color: #dc3545;
+        }
+
+        .trend-indicator.down {
+            color: #28a745;
+        }
+
+        .alert-count {
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .usage-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .usage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #007bff);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .usage-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .cost-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 6px;
+        }
+
+        .cost-type {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .cost-amount {
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .projected-cost {
+            text-align: center;
+            padding: 10px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 6px;
+            color: #155724;
+        }
+
+        .daily-chart {
+            margin-bottom: 15px;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: end;
+            height: 100px;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .bar {
+            background: linear-gradient(to top, #17a2b8, #007bff);
+            border-radius: 3px 3px 0 0;
+            flex: 1;
+            min-height: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            background: linear-gradient(to top, #138496, #0056b3);
+            transform: scaleY(1.1);
+        }
+
+        .bar.active {
+            background: linear-gradient(to top, #dc3545, #c82333);
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .today-usage {
+            text-align: center;
+            padding: 10px;
+            background: rgba(23, 162, 184, 0.1);
+            border-radius: 6px;
+            color: #0c5460;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .alert-item:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .alert-item.warning {
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .alert-item.info {
+            background: rgba(23, 162, 184, 0.1);
+        }
+
+        .alert-item.success {
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .alert-icon {
+            font-size: 1.2em;
+            margin-right: 12px;
+        }
+
+        .alert-text {
+            flex-grow: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .alert-time {
+            font-size: 0.8em;
+            color: #666;
+        }
     </style>
 </head>
 <body>
