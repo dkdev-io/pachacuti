@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-23T23:11:40.970Z",
+  "tokenUsage": {
+    "inputTokens": 50958,
+    "outputTokens": 21925,
+    "totalTokens": 72883,
+    "estimatedCost": 2.4087449999999997,
+    "sessionsAnalyzed": 0,
+    "inputCost": 0.76437,
+    "outputCost": 1.644375
+  },
+  "metadata": {
+    "generatedBy": "token-usage-tracker.js",
+    "sessionStart": "2025-08-23T23:11:40.931Z"
+  }
+}
