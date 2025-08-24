@@ -28,21 +28,56 @@ function getCurrentCount() {
   }
 }
 
-// Execute SQL safely
-function executeSQL(sql) {
+// Execute SQL safely with parameter binding for complex data
+function executeSQL(sql, params = []) {
   try {
-    execSync(`sqlite3 "${DB_PATH}" "${sql}"`, { encoding: 'utf8' });
-    return true;
+    if (params.length > 0) {
+      // Use parameter binding for complex data
+      const tempFile = `/tmp/sql_params_${Date.now()}.json`;
+      fs.writeFileSync(tempFile, JSON.stringify(params));
+      
+      const result = execSync(`node -e "
+        const fs = require('fs');
+        const sqlite3 = require('sqlite3');
+        const db = new sqlite3.Database('${DB_PATH}');
+        const params = JSON.parse(fs.readFileSync('${tempFile}', 'utf8'));
+        db.run(\`${sql}\`, params, function(err) {
+          if (err) {
+            console.error('SQL Error:', err.message);
+            process.exit(1);
+          }
+          db.close();
+          fs.unlinkSync('${tempFile}');
+        });
+      "`, { encoding: 'utf8' });
+      
+      return true;
+    } else {
+      // Simple SQL without parameters
+      execSync(`sqlite3 "${DB_PATH}" "${sql}"`, { encoding: 'utf8' });
+      return true;
+    }
   } catch (err) {
     console.error(`SQL Error: ${err.message}`);
     return false;
   }
 }
 
-// Escape SQL strings
+// Escape SQL strings with proper JSON handling
 const escapeSQL = (str) => {
   if (str === null || str === undefined) return 'NULL';
-  return "'" + String(str).replace(/'/g, "''") + "'";
+  if (str === '') return "''";
+  
+  // Convert to string and handle all problematic characters
+  const cleaned = String(str)
+    .replace(/\\/g, '\\\\')     // Escape backslashes first
+    .replace(/'/g, "''")       // Escape single quotes for SQL
+    .replace(/\n/g, '\\n')     // Escape newlines
+    .replace(/\r/g, '\\r')     // Escape carriage returns
+    .replace(/\t/g, '\\t')     // Escape tabs
+    .replace(/\x00/g, '');     // Remove null bytes
+  
+  return "'" + cleaned + "'";
 };
 
 // Discover all projects
@@ -132,20 +167,53 @@ function processProject(projectName) {
         for (let i = 0; i < data.commands.length; i++) {
           const cmd = data.commands[i];
           
-          // Handle command field
+          // Skip malformed commands
+          if (!cmd || typeof cmd !== 'object') {
+            console.log(`    Skipping malformed command ${i}`);
+            continue;
+          }
+          
+          // Handle command field - improved parsing for complex structures
           let commandText = '';
           if (typeof cmd.command === 'string') {
             commandText = cmd.command;
           } else if (cmd.command && typeof cmd.command === 'object') {
-            commandText = JSON.stringify(cmd.command);
+            // Handle complex command objects with mode/filenames structure
+            if (cmd.command.mode && cmd.command.filenames) {
+              commandText = `Command mode: ${cmd.command.mode} (${cmd.command.filenames.length} files)`;
+            } else if (cmd.command.stdout) {
+              // Handle output-style command objects
+              commandText = cmd.command.stdout || 'Complex command output';
+            } else {
+              // Fallback to JSON string for other complex objects (truncated for safety)
+              const jsonStr = JSON.stringify(cmd.command);
+              commandText = jsonStr.length > 200 ? jsonStr.substring(0, 197) + '...' : jsonStr;
+            }
+          } else {
+            commandText = 'Empty command';
           }
           
-          // Handle output
+          // Handle output - improved parsing for complex structures
           let outputText = '';
           if (typeof cmd.output === 'string') {
             outputText = cmd.output;
           } else if (cmd.output && typeof cmd.output === 'object') {
-            outputText = JSON.stringify(cmd.output);
+            // Handle structured output objects with stdout/stderr
+            if (cmd.output.stdout !== undefined) {
+              outputText = cmd.output.stdout || '';
+              if (cmd.output.stderr && cmd.output.stderr.trim()) {
+                outputText += '\n[STDERR]: ' + cmd.output.stderr;
+              }
+            } else if (cmd.output.filenames && Array.isArray(cmd.output.filenames)) {
+              // Handle file list outputs
+              outputText = `File list (${cmd.output.filenames.length} files): ${cmd.output.filenames.slice(0, 3).join(', ')}${cmd.output.filenames.length > 3 ? '...' : ''}`;
+            } else {
+              // Fallback to JSON string for other complex objects (truncated for safety)
+              const jsonStr = JSON.stringify(cmd.output);
+              outputText = jsonStr.length > 500 ? jsonStr.substring(0, 497) + '...' : jsonStr;
+            }
+          } else {
+            outputText = '';
           }
           
           const commandSQL = `
@@ -168,6 +236,8 @@ function processProject(projectName) {
           
           if (executeSQL(commandSQL)) {
             fileCommands++;
+          } else {
+            console.log(`    Failed to import command ${i}: ${commandText.substring(0, 50)}...`);
           }
         }
       }
@@ -177,6 +247,8 @@ function processProject(projectName) {
       
     } catch (err) {
       console.log(`❌ Error: ${err.message}`);
+      console.log(`    File: ${file}`);
+      console.log(`    Attempting to continue with next file...`);
     }
   }
   
