@@ -1,0 +1,23 @@
+{
+  "name": "pachacuti-slack-integration",
+  "version": "1.0.0",
+  "description": "Slack approval channel integration for Pachacuti shell sessions",
+  "main": "index.js",
+  "dependencies": {
+    "@slack/web-api": "^7.0.0",
+    "@slack/events-api": "^3.0.1",
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "node-schedule": "^2.1.1",
+    "dotenv": "^16.3.1",
+    "crypto": "^1.0.1",
+    "winston": "^3.11.0"
+  },
+  "scripts": {
+    "start": "node webhook-handler.js",
+    "test": "jest",
+    "setup": "node setup-slack-app.js"
+  },
+  "author": "Pachacuti",
+  "license": "MIT"
+}

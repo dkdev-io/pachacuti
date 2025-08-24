@@ -139,18 +139,35 @@ class QAVerifier {
         const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
         
         if (pkg.scripts && pkg.scripts.test) {
+          // Check if it's the default npm placeholder
+          const testScript = pkg.scripts.test.trim();
+          if (testScript === 'echo "Error: no test specified" && exit 1') {
+            this.log('⚠️  No tests configured (using npm default placeholder)', 'yellow');
+            this.testResults = { configured: false, message: 'No tests configured' };
+            return;
+          }
+          
           this.log('Running tests...', 'cyan');
           try {
             const testOutput = execSync('npm test 2>&1', { encoding: 'utf8', stdio: 'pipe' });
             this.log('✅ All tests passing', 'green');
-            this.testResults = { passed: true, output: testOutput };
+            this.testResults = { configured: true, passed: true, output: testOutput };
           } catch (e) {
-            this.log('❌ Some tests failing', 'red');
-            this.testResults = { passed: false, output: e.stdout || e.message };
-            this.codeIssues.push('Failing tests detected');
+            const output = e.stdout || e.message || '';
+            
+            // Check if it's actually "no test specified" error
+            if (output.includes('Error: no test specified')) {
+              this.log('⚠️  No tests configured', 'yellow');
+              this.testResults = { configured: false, message: 'No tests configured' };
+            } else {
+              this.log('❌ Some tests failing', 'red');
+              this.testResults = { configured: true, passed: false, output: output };
+              this.codeIssues.push('Failing tests detected');
+            }
           }
         } else {
           this.log('⚠️  No test script found', 'yellow');
+          this.testResults = { configured: false, message: 'No test script' };
         }
       } catch (e) {
         this.log('⚠️  Could not run tests', 'yellow');
@@ -333,7 +350,9 @@ class QAVerifier {
     // Check for test mentions
     if (summary.toLowerCase().includes('test')) {
       if (this.testResults) {
-        if (this.testResults.passed) {
+        if (!this.testResults.configured) {
+          results.partial.push('Tests mentioned but no tests configured');
+        } else if (this.testResults.passed) {
           results.confirmed.push('Tests mentioned and passing');
         } else {
           results.partial.push('Tests mentioned but some failing');
@@ -573,6 +592,7 @@ class QAVerifier {
     // Run actual tests to get real numbers
     let actualTestCount = 0;
     let actualCoverage = 0;
+    let testsConfigured = false;
     
     try {
       const testOutput = execSync('npm test -- --reporter=json 2>/dev/null || npm test 2>&1', { 
@@ -580,31 +600,44 @@ class QAVerifier {
         maxBuffer: 1024 * 1024 * 10
       });
       
-      // Try to parse test count from output
-      const passingMatch = testOutput.match(/(\d+)\s+passing/i);
-      const failingMatch = testOutput.match(/(\d+)\s+failing/i);
-      
-      if (passingMatch) {
-        actualTestCount = parseInt(passingMatch[1]);
-        this.actualMetrics.testsPassing = actualTestCount;
-      }
-      if (failingMatch) {
-        this.actualMetrics.testsFailing = parseInt(failingMatch[1]);
-      }
-      
-      // Try to extract coverage
-      const coverageMatch = testOutput.match(/(?:coverage|statements)\s*:\s*(\d+(?:\.\d+)?)%/i);
-      if (coverageMatch) {
-        actualCoverage = parseFloat(coverageMatch[1]);
-        this.actualMetrics.coverage = actualCoverage;
+      // Check if it's the "no test specified" error
+      if (testOutput.includes('Error: no test specified')) {
+        testsConfigured = false;
+      } else {
+        testsConfigured = true;
+        
+        // Try to parse test count from output
+        const passingMatch = testOutput.match(/(\d+)\s+passing/i);
+        const failingMatch = testOutput.match(/(\d+)\s+failing/i);
+        
+        if (passingMatch) {
+          actualTestCount = parseInt(passingMatch[1]);
+          this.actualMetrics.testsPassing = actualTestCount;
+        }
+        if (failingMatch) {
+          this.actualMetrics.testsFailing = parseInt(failingMatch[1]);
+        }
+        
+        // Try to extract coverage
+        const coverageMatch = testOutput.match(/(?:coverage|statements)\s*:\s*(\d+(?:\.\d+)?)%/i);
+        if (coverageMatch) {
+          actualCoverage = parseFloat(coverageMatch[1]);
+          this.actualMetrics.coverage = actualCoverage;
+        }
       }
     } catch (e) {
-      // Tests failed or not available
+      // Check error output for "no test specified"
+      const errorOutput = e.stdout || e.message || '';
+      if (errorOutput.includes('Error: no test specified')) {
+        testsConfigured = false;
+      }
     }
     
     // Verify test count claims
     claimedMetrics.tests.forEach(claim => {
-      if (actualTestCount > 0) {
+      if (!testsConfigured) {
+        results.exaggerated.push(`Claimed ${claim.count} tests but no tests are configured`);
+      } else if (actualTestCount > 0) {
         const difference = Math.abs(actualTestCount - claim.count);
         const percentDiff = (difference / claim.count) * 100;
         
@@ -622,7 +655,9 @@ class QAVerifier {
     
     // Verify coverage claims
     if (claimedMetrics.coverage !== null) {
-      if (actualCoverage > 0) {
+      if (!testsConfigured) {
+        results.exaggerated.push(`Claimed ${claimedMetrics.coverage}% coverage but no tests are configured`);
+      } else if (actualCoverage > 0) {
         const coverageDiff = Math.abs(actualCoverage - claimedMetrics.coverage);
         
         if (coverageDiff <= 2) {
@@ -729,7 +764,7 @@ class QAVerifier {
     const taskLower = task.toLowerCase();
     
     if (taskLower.includes('test')) {
-      return this.testResults && this.testResults.passed;
+      return this.testResults && this.testResults.configured && this.testResults.passed;
     }
     
     if (taskLower.includes('fix') && taskLower.includes('error')) {
@@ -966,7 +1001,9 @@ class QAVerifier {
     console.log('');
     this.log('QUALITY METRICS:', 'bright');
     console.log(`  • Recent commits: ${this.recentChanges.length > 0 ? 'Yes' : 'No'}`);
-    console.log(`  • Tests status: ${this.testResults ? (this.testResults.passed ? 'Passing' : 'Failing') : 'Not run'}`);
+    console.log(`  • Tests status: ${this.testResults ? 
+      (!this.testResults.configured ? 'No tests configured' : 
+       (this.testResults.passed ? 'Passing' : 'Failing')) : 'Not run'}`);
     console.log(`  • Code issues: ${this.codeIssues.length}`);
     
     // Recommendations
@@ -977,7 +1014,7 @@ class QAVerifier {
     console.log('');
     const readyForProd = verification.missing.length === 0 && 
                          verification.issues.length === 0 && 
-                         (!this.testResults || this.testResults.passed);
+                         (!this.testResults || !this.testResults.configured || this.testResults.passed);
     
     if (readyForProd) {
       this.log('✅ READY FOR PRODUCTION', 'green');
@@ -996,8 +1033,10 @@ class QAVerifier {
       recommendations.push("Task('coder', 'Complete missing files implementation')");
     }
     
-    if (this.testResults && !this.testResults.passed) {
+    if (this.testResults && this.testResults.configured && !this.testResults.passed) {
       recommendations.push("Task('tester', 'Fix failing tests')");
+    } else if (this.testResults && !this.testResults.configured) {
+      recommendations.push("Task('tester', 'Create test suite for the project')");
     }
     
     if (this.codeIssues.includes('Linting errors detected')) {

@@ -1,0 +1,153 @@
+{
+  "app": {
+    "name": "Pachacuti Approval Bot",
+    "description": "Shell command approval system with hierarchical channel management"
+  },
+  "oauth": {
+    "scopes": {
+      "bot": [
+        "channels:manage",
+        "channels:read",
+        "chat:write",
+        "chat:write.public",
+        "commands",
+        "groups:write",
+        "im:write",
+        "incoming-webhook",
+        "users:read"
+      ]
+    }
+  },
+  "features": {
+    "appHome": {
+      "homeTabEnabled": false,
+      "messagesTabEnabled": true
+    },
+    "botUser": {
+      "displayName": "Pachacuti Approval",
+      "alwaysOnline": true
+    },
+    "interactivity": {
+      "enabled": true,
+      "requestUrl": "https://your-domain.com/slack/interactive"
+    },
+    "slashCommands": [
+      {
+        "command": "/approval-status",
+        "description": "Check pending approvals",
+        "usageHint": "[shell-id]"
+      }
+    ]
+  },
+  "settings": {
+    "channelPrefix": "appr",
+    "reminderIntervalMinutes": 15,
+    "maxChannelNameLength": 80,
+    "archiveOnClose": true,
+    "deleteRequiresEnterpriseGrid": true,
+    "healthCheckIntervalSeconds": 30,
+    "rateLimitRetryDelayMs": 1000,
+    "maxRetries": 3
+  },
+  "messages": {
+    "approvalRequest": {
+      "text": "Command Approval Required",
+      "blocks": [
+        {
+          "type": "header",
+          "text": {
+            "type": "plain_text",
+            "text": "🔐 Command Approval Required"
+          }
+        },
+        {
+          "type": "section",
+          "fields": [
+            {
+              "type": "mrkdwn",
+              "text": "*Shell:*\n{shellId}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Project:*\n{project}"
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*Command:*\n```{command}```"
+          }
+        },
+        {
+          "type": "context",
+          "elements": [
+            {
+              "type": "mrkdwn",
+              "text": "Working Directory: `{workingDir}`"
+            }
+          ]
+        },
+        {
+          "type": "actions",
+          "elements": [
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "✅ Approve"
+              },
+              "style": "primary",
+              "action_id": "approve_command",
+              "value": "{approvalId}"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "❌ Deny"
+              },
+              "style": "danger",
+              "action_id": "deny_command",
+              "value": "{approvalId}"
+            }
+          ]
+        }
+      ]
+    },
+    "reminder": {
+      "text": "⏰ Approval pending for 15 minutes",
+      "blocks": [
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "⏰ *Reminder: Approval Pending*\nThis command has been waiting for approval for 15 minutes."
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*Command:*\n```{command}```"
+          }
+        }
+      ]
+    },
+    "approved": {
+      "text": "✅ Command approved and executed",
+      "replace_original": true
+    },
+    "denied": {
+      "text": "❌ Command denied and blocked",
+      "replace_original": true
+    },
+    "channelCreated": {
+      "text": "🚀 Approval channel created for shell session\n*Project:* {project}\n*Shell ID:* {shellId}"
+    },
+    "channelArchived": {
+      "text": "📦 Channel archived - Shell session ended"
+    }
+  }
+}

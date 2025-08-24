@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Dashboard - Pachacuti DevOps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            background: #5a67d8;
+        }
+
+        .project-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .agents-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .agent-badge {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .info-message {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Task Manager Dashboard</h1>
+            <p>Multi-Agent Project Orchestration System</p>
+        </div>
+
+        <a href="file:///Users/Danallovertheplace/pachacuti/devops/agent-dashboard.html" class="back-link">
+            ← Back to Main Dashboard
+        </a>
+
+        <div class="info-message">
+            <h2>Task Manager Overview</h2>
+            <p style="margin-top: 10px;">This dashboard manages active agent projects and task orchestration.</p>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <h2>Active Agent Projects</h2>
+            <div class="project-list">
+                <div class="project-card">
+                    <h3>Planner Agent - Project 1755986059542</h3>
+                    <p>Status: <strong>Active</strong></p>
+                    <div class="agents-list">
+                        <span class="agent-badge">Planning</span>
+                        <span class="agent-badge">Analysis</span>
+                        <span class="agent-badge">Documentation</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Frontend Developer Agent - Project 1755986059542</h3>
+                    <p>Status: <strong>Active</strong></p>
+                    <div class="agents-list">
+                        <span class="agent-badge">UI Development</span>
+                        <span class="agent-badge">React Components</span>
+                        <span class="agent-badge">Testing</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Coder Agent - Project 1755986059542</h3>
+                    <p>Status: <strong>Active</strong></p>
+                    <div class="agents-list">
+                        <span class="agent-badge">Implementation</span>
+                        <span class="agent-badge">Code Generation</span>
+                        <span class="agent-badge">Optimization</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Reviewer Agent - Project 1755986059542</h3>
+                    <p>Status: <strong>Active</strong></p>
+                    <div class="agents-list">
+                        <span class="agent-badge">Code Review</span>
+                        <span class="agent-badge">Quality Assurance</span>
+                        <span class="agent-badge">Best Practices</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+            <h3>Project Statistics</h3>
+            <ul style="list-style: none; margin-top: 10px;">
+                <li>✅ Active Agents: 4</li>
+                <li>📁 Total Projects: 1</li>
+                <li>🔄 Status: All Systems Operational</li>
+                <li>⏰ Last Update: <span id="timestamp"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        }, 30000);
+    </script>
+</body>
+</html>

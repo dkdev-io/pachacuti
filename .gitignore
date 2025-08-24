@@ -7,3 +7,4 @@ shell-viewer/backend/node_modules/
 performance-logs/
 *.pack
 .cache/
+shell-viewer/backend/data/*.db
