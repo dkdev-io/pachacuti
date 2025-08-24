@@ -401,6 +401,130 @@
             margin-left: 5px;
         }
 
+        /* Project Management Table Styles */
+        .project-management-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            margin-top: 20px;
+            border: 2px solid #e1e5e9;
+        }
+
+        .excel-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #5a67d8;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .excel-table td {
+            padding: 10px 15px;
+            border: 1px solid #e1e5e9;
+            background: white;
+            transition: background 0.2s ease;
+        }
+
+        .excel-table tbody tr:nth-child(even) td {
+            background: #f8f9fa;
+        }
+
+        .excel-table tbody tr:hover td {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .repo-name {
+            font-family: Monaco, 'Courier New', monospace;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .agent-count {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .agent-count.zero {
+            background: #ccc;
+        }
+
+        .status-select {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 0.9em;
+            cursor: pointer;
+            min-width: 110px;
+        }
+
+        .status-select.finished {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .status-select.in_progress {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+
+        .status-select.held {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .project-summary {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 10px 15px;
+        }
+
+        .summary-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .summary-value.finished { color: #28a745; }
+        .summary-value.in_progress { color: #ffc107; }
+        .summary-value.held { color: #dc3545; }
+        .summary-value.agents { color: #667eea; }
+
+        .summary-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
         .activity-high {
             background: #00ff88;
             animation: blink 1s infinite;
@@ -975,6 +1099,7 @@
     <div class="nav-bar">
         <a href="#overview" class="nav-link active">📊 Overview</a>
         <a href="#projects" class="nav-link">🎯 Projects</a>
+        <a href="#project-management" class="nav-link">📋 Project Management</a>
         <a href="#agents" class="nav-link">🤖 Agents</a>
         <a href="file:///Users/Danallovertheplace/pachacuti/devops/shell-report.html" class="nav-link">💻 Shell Tracking</a>
         <a href="#daily" class="nav-link">📅 Daily Report</a>
@@ -1048,6 +1173,48 @@
             </div>
             <div id="projectsGrid">
                 <!-- Task Manager Projects will be populated here -->
+            </div>
+        </div>
+
+        <!-- Project Management Excel-Style Table -->
+        <div class="project-management-section" id="project-management">
+            <div class="section-title">
+                📋 Repository Project Management
+                <button class="create-project-btn" onclick="refreshProjectData()">🔄 Refresh Data</button>
+            </div>
+            
+            <table class="excel-table" id="projectManagementTable">
+                <thead>
+                    <tr>
+                        <th>📁 Repository Name</th>
+                        <th>📝 Description</th>
+                        <th>📅 Date Last Accessed</th>
+                        <th>🤖 Active Agents</th>
+                        <th>📊 Status</th>
+                    </tr>
+                </thead>
+                <tbody id="projectManagementBody">
+                    <!-- Project data will be populated here -->
+                </tbody>
+            </table>
+
+            <div class="project-summary" id="projectSummary">
+                <div class="summary-item">
+                    <div class="summary-value finished" id="finishedCount">0</div>
+                    <div class="summary-label">Finished</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value in_progress" id="inProgressCount">0</div>
+                    <div class="summary-label">In Progress</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value held" id="heldCount">0</div>
+                    <div class="summary-label">On Hold</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value agents" id="totalAgentsCount">0</div>
+                    <div class="summary-label">Total Active Agents</div>
+                </div>
             </div>
         </div>
 
@@ -1520,6 +1687,66 @@
                 this.agents = [];
                 this.projects = [];
                 this.taskManagerProjects = [];
+                this.managementProjects = [
+                    // Core System Projects
+                    {id: 1, repoName: 'pachacuti', description: 'Main orchestration system & DevOps dashboard', dateLastAccessed: '2025-08-24', activeAgents: 1, status: 'in_progress'},
+                    {id: 2, repoName: 'session-recorder', description: 'Session capture and analysis system', dateLastAccessed: '2025-08-21', activeAgents: 0, status: 'held'},
+                    
+                    // AI & Productivity Tools
+                    {id: 3, repoName: 'claude-productivity-tools', description: 'Claude-based productivity and automation tools', dateLastAccessed: '2025-08-23', activeAgents: 0, status: 'held'},
+                    {id: 4, repoName: 'note-clarify-organizer', description: 'AI-powered note organization and clarification system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 5, repoName: 'visual-verification', description: 'Visual content verification and analysis tools', dateLastAccessed: '2025-08-22', activeAgents: 0, status: 'finished'},
+                    {id: 6, repoName: 'CaptureAI', description: 'AI-powered content capture and processing', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 7, repoName: 'AIDialogueEngine', description: 'Advanced AI dialogue and conversation engine', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // Cryptocurrency & Campaign Projects
+                    {id: 8, repoName: 'crypto-campaign-unified', description: 'Unified cryptocurrency campaign management system', dateLastAccessed: '2025-08-24', activeAgents: 2, status: 'in_progress'},
+                    {id: 9, repoName: 'crypto-campaign-setup', description: 'Cryptocurrency campaign setup and initialization', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 10, repoName: 'blue-token-campaigns', description: 'Blue Token political and advocacy campaigns', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 11, repoName: 'BlueToken', description: 'Core Blue Token blockchain infrastructure', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 12, repoName: 'CryptoPledge', description: 'Cryptocurrency pledge and commitment system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // Voter & Political Tools
+                    {id: 13, repoName: 'GerryManderMapper', description: 'Gerrymandering analysis and visualization tool', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 14, repoName: 'voter-analytics-hub', description: 'Comprehensive voter analytics and data hub', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 15, repoName: 'VoterAnalytics', description: 'Voter behavior analysis and prediction system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 16, repoName: 'VoterContactTracker', description: 'Voter contact management and tracking system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 17, repoName: 'MakeAPlanVoter', description: 'Voter planning and engagement application', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // Communication & Social Tools
+                    {id: 18, repoName: 'contact-nexus-unify-flow', description: 'Unified contact management and communication flow', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 19, repoName: 'social-survey-secure-haven', description: 'Secure social survey and data collection platform', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 20, repoName: 'rsvp-unifier', description: 'Event RSVP management and unification system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 21, repoName: 'live-stream-buddy', description: 'Live streaming management and automation tool', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // Productivity & Lifestyle Apps  
+                    {id: 22, repoName: 'HabitChallenge', description: 'Habit tracking and challenge management system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 23, repoName: 'habit-tracker', description: 'Personal habit tracking and analytics dashboard', dateLastAccessed: '2025-08-15', activeAgents: 0, status: 'finished'},
+                    {id: 24, repoName: 'MorningBrief', description: 'Daily morning briefing and news aggregation', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 25, repoName: 'ScheduleMe', description: 'Advanced scheduling and calendar management', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 26, repoName: 'PersonalFinancialStatementPFS', description: 'Personal financial statement and planning system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // Utility & Web Tools
+                    {id: 27, repoName: 'GoogleLifeSearch', description: 'Enhanced Google search and life organization tool', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 28, repoName: 'WebLinkTracker', description: 'Web link tracking and management system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 29, repoName: 'HomeAssistantGenie', description: 'Smart home assistant and automation genie', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 30, repoName: 'minimalist-web-design', description: 'Minimalist web design templates and tools', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // E-commerce & Business
+                    {id: 31, repoName: 'SmartShopper', description: 'Intelligent shopping assistant and price tracker', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 32, repoName: 'RentalWatcher', description: 'Rental property monitoring and management tool', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 33, repoName: 'LocationBuddy', description: 'Location-based services and buddy system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    
+                    // Development & API Tools
+                    {id: 34, repoName: 'api_request_bot', description: 'Automated API request testing and monitoring bot', dateLastAccessed: '2025-02-21', activeAgents: 0, status: 'finished'},
+                    {id: 35, repoName: 'replit-sync-project', description: 'Replit project synchronization and management', dateLastAccessed: '2025-08-19', activeAgents: 0, status: 'finished'},
+                    {id: 36, repoName: 'claude-sparc-config', description: 'Claude SPARC methodology configuration system', dateLastAccessed: '2025-08-24', activeAgents: 0, status: 'held'},
+                    {id: 37, repoName: 'secure-send', description: 'Secure file and message transmission system', dateLastAccessed: '2025-08-18', activeAgents: 0, status: 'finished'},
+                    
+                    // Project Management & Archive
+                    {id: 38, repoName: 'project-sessions', description: 'Project session management and tracking system', dateLastAccessed: '2025-08-23', activeAgents: 0, status: 'held'},
+                    {id: 39, repoName: 'unfinished-apps-workspace', description: 'Workspace for unfinished application development', dateLastAccessed: '2025-08-22', activeAgents: 0, status: 'held'}
+                ];
                 this.tokenUsage = {
                     used: 0,
                     limit: 1000000,
@@ -1575,6 +1802,7 @@
                 this.renderAgents();
                 this.renderTaskManagerProjects();
                 this.renderRepositoryProjects();
+                this.renderProjectManagementTable();
                 this.updateLastUpdate();
             }
 
@@ -2185,6 +2413,62 @@
                 });
             }
 
+            renderProjectManagementTable() {
+                const tbody = document.getElementById('projectManagementBody');
+                if (!tbody) return;
+                
+                tbody.innerHTML = '';
+                
+                this.managementProjects.forEach(project => {
+                    const row = document.createElement('tr');
+                    
+                    const formatDate = (dateString) => {
+                        const date = new Date(dateString);
+                        return date.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+                    };
+                    
+                    row.innerHTML = `
+                        <td><span class="repo-name">${project.repoName}</span></td>
+                        <td>${project.description}</td>
+                        <td>${formatDate(project.dateLastAccessed)}</td>
+                        <td>
+                            <span class="agent-count ${project.activeAgents === 0 ? 'zero' : ''}">
+                                ${project.activeAgents}
+                            </span>
+                        </td>
+                        <td>
+                            <select class="status-select ${project.status}" 
+                                    onchange="updateProjectStatus(${project.id}, this.value)"
+                                    value="${project.status}">
+                                <option value="finished" ${project.status === 'finished' ? 'selected' : ''}>Finished</option>
+                                <option value="in_progress" ${project.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="held" ${project.status === 'held' ? 'selected' : ''}>On Hold</option>
+                            </select>
+                        </td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+                
+                this.updateProjectSummary();
+            }
+            
+            updateProjectSummary() {
+                const finishedCount = this.managementProjects.filter(p => p.status === 'finished').length;
+                const inProgressCount = this.managementProjects.filter(p => p.status === 'in_progress').length;
+                const heldCount = this.managementProjects.filter(p => p.status === 'held').length;
+                const totalAgents = this.managementProjects.reduce((sum, p) => sum + p.activeAgents, 0);
+                
+                document.getElementById('finishedCount').textContent = finishedCount;
+                document.getElementById('inProgressCount').textContent = inProgressCount;
+                document.getElementById('heldCount').textContent = heldCount;
+                document.getElementById('totalAgentsCount').textContent = totalAgents;
+            }
+
             simulateActivity() {
                 // Randomly update some agent statuses
                 if (this.agents.length > 0 && Math.random() > 0.7) {
@@ -2197,6 +2481,7 @@
                 localStorage.setItem('agentDashboardData', JSON.stringify({
                     agents: this.agents,
                     projects: this.projects,
+                    managementProjects: this.managementProjects,
                     lastUpdate: new Date().toISOString()
                 }));
             }
@@ -2490,6 +2775,7 @@ Active Namespaces:
             const sectionMap = {
                 'overview': 'stats-bar',
                 'projects': 'projectsSection', 
+                'project-management': 'project-management',
                 'agents': 'agentsGrid',
                 'shell': 'integration-panel',
                 'daily': 'daily-report-section'
@@ -2501,6 +2787,48 @@ Active Namespaces:
                 if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
                 }
+            }
+        }
+        
+        // Project Management Functions
+        function updateProjectStatus(projectId, newStatus) {
+            if (window.dashboard) {
+                const project = window.dashboard.managementProjects.find(p => p.id === projectId);
+                if (project) {
+                    project.status = newStatus;
+                    // Update the select appearance
+                    const select = event.target;
+                    select.className = `status-select ${newStatus}`;
+                    // Update summary
+                    window.dashboard.updateProjectSummary();
+                    // Save to localStorage
+                    window.dashboard.simulateActivity();
+                }
+            }
+        }
+        
+        function refreshProjectData() {
+            if (window.dashboard) {
+                // Simulate data refresh by updating last accessed dates for active projects
+                window.dashboard.managementProjects.forEach(project => {
+                    if (project.status === 'in_progress' && Math.random() > 0.5) {
+                        project.dateLastAccessed = new Date().toISOString().split('T')[0];
+                        // Occasionally update agent counts
+                        if (Math.random() > 0.7) {
+                            project.activeAgents = Math.max(0, project.activeAgents + (Math.random() > 0.5 ? 1 : -1));
+                        }
+                    }
+                });
+                
+                window.dashboard.renderProjectManagementTable();
+                
+                // Show refresh confirmation
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Refreshed';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
             }
         }
     </script>

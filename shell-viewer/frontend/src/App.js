@@ -16,6 +16,7 @@ import SessionViewer from './pages/SessionViewer';
 import AISearch from './pages/AISearch';
 import WebTerminal from './pages/WebTerminal';
 import Dashboard from './pages/Dashboard';
+import ProjectManagement from './pages/ProjectManagement';
 
 // Services
 import { socketService } from './services/socketService';
@@ -147,6 +148,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard sessions={sessions} />} />
+              <Route path="/projects" element={<ProjectManagement />} />
               <Route path="/sessions" element={<SessionList sessions={sessions} onSessionSelect={handleSessionSelect} />} />
               <Route path="/sessions/:id" element={<SessionViewer />} />
               <Route path="/search" element={<AISearch sessions={sessions} />} />

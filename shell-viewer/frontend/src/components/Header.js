@@ -19,7 +19,8 @@ import {
   Search as SearchIcon,
   Dashboard as DashboardIcon,
   Assessment as AssessmentIcon,
-  Launch as LaunchIcon
+  Launch as LaunchIcon,
+  FolderOpen as ProjectsIcon
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -31,6 +32,8 @@ const Header = ({ onMenuClick, currentSession }) => {
     switch (location.pathname) {
       case '/dashboard':
         return 'Dashboard';
+      case '/projects':
+        return 'Project Management';
       case '/sessions':
         return 'Sessions';
       case '/search':
@@ -105,6 +108,18 @@ const Header = ({ onMenuClick, currentSession }) => {
               }}
             >
               <DashboardIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Projects">
+            <IconButton
+              color="inherit"
+              onClick={() => navigate('/projects')}
+              sx={{ 
+                color: location.pathname === '/projects' ? '#00ff41' : 'inherit'
+              }}
+            >
+              <ProjectsIcon />
             </IconButton>
           </Tooltip>
 
