@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-08-24T16:12:04.337Z",
+  "policy": "REAL_DATA_ONLY",
+  "apiKeyPresent": true,
+  "data": {
+    "tokens": {
+      "status": "available",
+      "inputTokens": 18649281,
+      "outputTokens": 243159,
+      "totalTokens": 18892440,
+      "inputCost": 279.739215,
+      "outputCost": 18.236925,
+      "totalCost": 297.97614,
+      "timestamp": "2025-08-24T16:12:04.210Z",
+      "source": "anthropic_api"
+    },
+    "github": {
+      "status": "available",
+      "linesAdded": 664,
+      "linesRemoved": 124,
+      "filesChanged": 6,
+      "commitsToday": 1,
+      "uncommittedLines": 580,
+      "source": "git_commands"
+    },
+    "agents": {
+      "status": "available",
+      "activeShells": 85,
+      "sessions": [
+        {
+          "id": "session_1",
+          "process": "Danallovertheplace 73100   9.6  2.4 444233952 404336 s002  S+    1:01PM  15:54.88 claude ",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_2",
+          "process": "Danallovertheplace 44200   9.1  2.3 444179120 378448 s000  S+    6:01PM   4:08.27 claude ",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_3",
+          "process": "Danallovertheplace 82231   0.0  0.0 410894080   1008   ??  Ss   11:03AM   0:00.01 /bin/zsh -c -l sou",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_4",
+          "process": "Danallovertheplace 75056   0.0  0.0 410743552   1008   ??  Ss   10:01AM   0:00.00 /bin/zsh -c -l sou",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_5",
+          "process": "Danallovertheplace 74490   0.0  0.0 410744576   1008   ??  Ss    9:58AM   0:00.00 /bin/zsh -c -l sou",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_6",
+          "process": "Danallovertheplace 74335   0.0  0.0 410743552   1008   ??  Ss    9:58AM   0:00.00 /bin/zsh -c -l sou",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_7",
+          "process": "Danallovertheplace 49693   0.0  3.2 444354320 530352 s005  S+    6:05PM   2:15.77 claude ",
+          "status": "active",
+          "type": "claude_session"
+        },
+        {
+          "id": "session_8",
+          "process": "Danallovertheplace 86687   0.0  0.0 410753792   2976   ??  Ss   11:10AM   0:00.00 /bin/zsh -c -l sou",
+          "status": "active",
+          "type": "claude_session"
+        }
+      ],
+      "source": "system_processes"
+    }
+  }
+}

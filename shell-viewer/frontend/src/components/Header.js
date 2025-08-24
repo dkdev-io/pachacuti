@@ -17,7 +17,9 @@ import {
   Menu as MenuIcon,
   Terminal as TerminalIcon,
   Search as SearchIcon,
-  Dashboard as DashboardIcon
+  Dashboard as DashboardIcon,
+  Assessment as AssessmentIcon,
+  Launch as LaunchIcon
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -35,12 +37,19 @@ const Header = ({ onMenuClick, currentSession }) => {
         return 'AI Search';
       case '/terminal':
         return 'Web Terminal';
+      case '/stats':
+        return 'Session Stats';
       default:
         if (location.pathname.startsWith('/sessions/')) {
           return 'Session Viewer';
         }
         return 'Pachacuti Shell Viewer';
     }
+  };
+
+  const openDailyReport = () => {
+    const dailyReportPath = `file:///Users/Danallovertheplace/pachacuti/devops/daily-report.html`;
+    window.open(dailyReportPath, '_blank');
   };
 
   return (
@@ -120,6 +129,33 @@ const Header = ({ onMenuClick, currentSession }) => {
               }}
             >
               <TerminalIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Session Stats">
+            <IconButton
+              color="inherit"
+              onClick={() => navigate('/stats')}
+              sx={{ 
+                color: location.pathname === '/stats' ? '#00ff41' : 'inherit'
+              }}
+            >
+              <AssessmentIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Daily Report">
+            <IconButton
+              color="inherit"
+              onClick={openDailyReport}
+              sx={{ 
+                color: '#00ff41',
+                '&:hover': {
+                  color: '#00ff41'
+                }
+              }}
+            >
+              <LaunchIcon />
             </IconButton>
           </Tooltip>
         </Box>

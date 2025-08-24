@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/dkdev-io/pachacuti#readme",
   "dependencies": {
+    "dotenv": "^17.2.1",
     "puppeteer": "^24.17.0"
   }
 }
