@@ -9,14 +9,13 @@ QA_SCRIPT="$PROJECT_DIR/scripts/qa-verifier.js"
 echo "🔍 Launching Quality Control in new shell window..."
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS - Open new Terminal window
-    osascript <<EOF
-tell application "Terminal"
-    activate
-    set newTab to do script "clear && echo '🔍 QUALITY CONTROL AGENT - $(basename $PROJECT_DIR)' && echo '════════════════════════════════════════════' && echo '' && cd '$PROJECT_DIR' && node '$QA_SCRIPT'"
-    set custom title of newTab to "Quality Control - $(basename $PROJECT_DIR)"
-end tell
-EOF
+    # macOS - Open new Terminal window  
+    PROJECT_NAME=$(basename "$PROJECT_DIR")
+    osascript -e 'tell application "Terminal"' \
+              -e 'activate' \
+              -e "do script \"clear && echo '🔍 QUALITY CONTROL AGENT - $PROJECT_NAME' && echo '════════════════════════════════════════════' && echo '' && cd '$PROJECT_DIR' && node '$QA_SCRIPT'\"" \
+              -e "set custom title of result to \"Quality Control - $PROJECT_NAME\"" \
+              -e 'end tell'
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux - Try different terminal emulators
     if command -v gnome-terminal &> /dev/null; then

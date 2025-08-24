@@ -1953,17 +1953,21 @@
 
             async loadRealDataOnly() {
                 // REAL DATA ONLY - No mock data allowed
+                let realData;
+                
                 try {
                     // Try to fetch from file first
                     const response = await fetch('./real-data.json');
-                    let realData;
                     
                     if (response.ok) {
                         realData = await response.json();
                         console.log('✅ Loaded real data from file');
                     } else {
-                        // Fallback to inline data if file not accessible
-                        console.log('⚠️ Using inline real data');
+                        throw new Error('File not accessible');
+                    }
+                } catch (fetchError) {
+                    // Fallback to inline data when fetch fails (expected for file:// protocol)
+                    console.log('⚠️ Fetch failed, using inline real data:', fetchError.message);
                         realData = {
                         "timestamp": "2025-08-24T18:57:20.895Z",
                         "policy": "REAL_DATA_ONLY",
@@ -2057,8 +2061,10 @@
                             }
                         }
                     };
-                    }
-                        
+                }
+                
+                // Now process the loaded data (either from file or fallback)
+                try {
                         // Load real GitHub stats
                         if (realData.data && realData.data.github && realData.data.github.status === 'available') {
                             this.githubStats = realData.data.github;
