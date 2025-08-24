@@ -1,17 +1,6 @@
 {
-  "date": "2025-08-23",
+  "date": "2025-08-24",
   "changes": [
-    "Claude Code updated to 1.0.89 (Claude Code)",
-    "New tool available: Read",
-    "New tool available: Write",
-    "New tool available: Edit",
-    "New tool available: Grep",
-    "New tool available: Glob",
-    "New tool available: Bash",
-    "New tool available: WebSearch",
-    "New tool available: WebFetch",
-    "New tool available: Task",
-    "New tool available: TodoWrite",
     "New agent available: general-purpose",
     "New agent available: coder",
     "New agent available: reviewer",
