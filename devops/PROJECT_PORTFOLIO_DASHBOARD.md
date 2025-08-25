@@ -17,18 +17,21 @@
 ### 🟢 ACTIVE PROJECTS (Currently Running)
 1. **crypto-campaign-unified** 
    - Status: Development server active (Vite)
+   - Localhost: http://localhost:5173
    - Recent Changes: 4 files modified
    - Resource Usage: MODERATE
    - Terminal: Active
 
 2. **note-clarify-organizer**
    - Status: Development server active (Vite + ESBuild)
+   - Localhost: http://localhost:8081 ✅ **FIXED**
    - Location: unfinished-apps-workspace
    - Resource Usage: LOW
    - Terminal: Active
 
 3. **Slack Receiver Integration**
    - Status: Background process running
+   - Localhost: http://localhost:3000
    - Resource Usage: MINIMAL
    - Purpose: Claude Code approval workflow
 
@@ -36,17 +39,40 @@
 4. **claude-productivity-tools**
    - Last Activity: Recent commits
    - Status: Development paused
+   - Localhost: Not assigned
    - Integration Potential: HIGH (cross-project utility)
 
 5. **visual-verification**
    - Status: Repository present
+   - Localhost: Not assigned
    - Development State: Unknown
 
+6. **shell-viewer**
+   - Status: Active infrastructure
+   - Backend: http://localhost:3001
+   - Frontend: http://localhost:3002
+   - Purpose: Session monitoring & management
+
 ### 🔵 DORMANT PROJECTS
-6. **api_request_bot**
-7. **habit-tracker**
-8. **replit-sync-project**
-9. **project-sessions**
+7. **api_request_bot**
+   - Localhost: Not assigned
+8. **habit-tracker**
+   - Localhost: Not assigned
+9. **replit-sync-project**
+   - Localhost: Not assigned
+10. **project-sessions**
+    - Localhost: Not assigned
+
+### ✅ RECENTLY FIXED PORT ASSIGNMENTS
+11. **voter-analytics-hub**
+    - Localhost: http://localhost:8082 ✅ **FIXED**
+    - Previous: Was conflicting on 8080
+12. **social-survey-secure-haven**
+    - Localhost: http://localhost:8083 ✅ **FIXED**
+    - Previous: Was conflicting on 8080
+13. **minimalist-web-design**
+    - Localhost: http://localhost:8084 ✅ **FIXED**
+    - Previous: Was conflicting on 8080
 
 ## ⚡ OPTIMIZATION RECOMMENDATIONS
 

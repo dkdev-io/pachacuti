@@ -1,0 +1,71 @@
+{
+  "port_assignments": {
+    "3000": {
+      "project": "slack-integration",
+      "type": "webhook",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/pachacuti/lib/slack-integration"
+    },
+    "3001": {
+      "project": "shell-viewer-backend",
+      "type": "backend-api",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/pachacuti/shell-viewer/backend"
+    },
+    "3002": {
+      "project": "shell-viewer-frontend",
+      "type": "frontend",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/pachacuti/shell-viewer/frontend"
+    },
+    "5173": {
+      "project": "crypto-campaign-setup",
+      "type": "frontend",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/Desktop/crypto-campaign-setup/frontend"
+    },
+    "8081": {
+      "project": "note-clarify-organizer",
+      "type": "frontend",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/unfinished-apps-workspace/note-clarify-organizer"
+    },
+    "8082": {
+      "project": "voter-analytics-hub",
+      "type": "frontend",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/unfinished-apps-workspace/voter-tools/voter-analytics-hub"
+    },
+    "8083": {
+      "project": "social-survey-secure-haven",
+      "type": "frontend",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/social-survey-secure-haven"
+    },
+    "8084": {
+      "project": "minimalist-web-design",
+      "type": "frontend",
+      "status": "active",
+      "path": "/Users/Danallovertheplace/minimalist-web-design"
+    }
+  },
+  "available_ports": [
+    3003, 3004, 3005, 3006, 3007, 3008, 3009, 3010,
+    4000, 4001, 4002, 4003, 4004, 4005,
+    5000, 5001, 5002, 5003, 5004, 5005,
+    5174, 5175, 5176, 5177, 5178,
+    8000, 8001, 8002, 8003, 8004, 8005,
+    8085, 8086, 8087, 8088, 8089, 8090,
+    9000, 9001, 9002, 9003, 9004, 9005
+  ],
+  "reserved_ports": {
+    "3306": "MySQL",
+    "5432": "PostgreSQL",
+    "6379": "Redis",
+    "27017": "MongoDB",
+    "9200": "Elasticsearch"
+  },
+  "last_updated": "2025-08-25",
+  "total_conflicts": 0,
+  "total_projects": 11
+}

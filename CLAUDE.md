@@ -453,6 +453,44 @@ Execute ALL steps when user says "startup" - coordinate all agents properly.
 **8. STARTUP COMPLETION:**
 - Always end startup process by saying: "Start up complete, ready to work."
 
+## 🚦 PORT ASSIGNMENT PROTOCOL
+
+### CRITICAL: Localhost Port Management
+**MANDATORY BEFORE ANY PORT ASSIGNMENT:**
+
+1. **CHECK AVAILABILITY FIRST:**
+   ```bash
+   ./scripts/check-port-availability.sh check [PORT] [PROJECT_NAME]
+   ```
+
+2. **NEVER REUSE THESE ACTIVE PORTS:**
+   - 3000: slack-integration (webhook)
+   - 3001: shell-viewer-backend
+   - 3002: shell-viewer-frontend  
+   - 5173: crypto-campaign-setup
+   - 8080: **CONFLICT** (4 projects using same port!)
+
+3. **SUGGEST SAFE PORT:**
+   ```bash
+   ./scripts/check-port-availability.sh suggest [frontend|backend]
+   ```
+
+4. **REGISTER NEW ASSIGNMENT:**
+   ```bash
+   ./scripts/check-port-availability.sh register [PORT] [PROJECT] [TYPE] [PATH]
+   ```
+
+5. **KNOWN PORT CONFLICTS TO FIX:**
+   - Port 8080 used by: note-clarify-organizer, voter-analytics-hub, social-survey-secure-haven, minimalist-web-design
+   - These need unique ports assigned ASAP
+
+### Port Assignment Rules:
+- Frontend apps: Start from 3003, 5174, 8081
+- Backend APIs: Start from 3006, 4000, 5000
+- Always check `/Users/Danallovertheplace/pachacuti/config/port-registry.json`
+- Update registry after every new assignment
+- NEVER assign without checking first
+
 # important-instruction-reminders
 Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
