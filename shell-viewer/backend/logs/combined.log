@@ -379,3 +379,19 @@
 {"ip":"::1","level":"info","message":"GET /health","service":"shell-viewer","timestamp":"2025-08-24T18:24:53.504Z","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"}
 {"level":"info","message":"Client disconnected: V7HdE7hFLEr6f7mSAAAT","service":"shell-viewer","timestamp":"2025-08-24T18:24:54.998Z"}
 {"level":"info","message":"Cleaned up 0 terminals for socket V7HdE7hFLEr6f7mSAAAT","service":"shell-viewer","timestamp":"2025-08-24T18:24:54.998Z"}
+{"level":"info","message":"🚀 Initializing Session Manager...","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.723Z"}
+{"level":"info","message":"📊 Local database initialized","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.732Z"}
+{"level":"info","message":"🔗 Setting up Session Recorder integration...","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.732Z"}
+{"level":"warn","message":"Session recorder path not found, skipping file watching","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.733Z"}
+{"level":"info","message":"📂 Loading existing sessions...","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.734Z"}
+{"level":"info","message":"✅ Loaded 0 sessions","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.736Z"}
+{"level":"info","message":"✅ Session Manager initialized","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.736Z"}
+{"level":"info","message":"🤖 Initializing AI Search Controller...","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.736Z"}
+{"level":"warn","message":"⚠️  OpenAI API key not found - AI features will be disabled","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.736Z"}
+{"level":"info","message":"🚀 Pachacuti Shell Viewer Server running on port 3001","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.737Z"}
+{"level":"info","message":"📊 Dashboard: http://localhost:3001","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.737Z"}
+{"level":"info","message":"🤖 AI Search: http://localhost:3001/api/search","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.737Z"}
+{"level":"info","message":"💻 Web Terminal: ws://localhost:3001","service":"shell-viewer","timestamp":"2025-08-25T10:00:26.737Z"}
+{"ip":"::1","level":"info","message":"GET /health","service":"shell-viewer","timestamp":"2025-08-25T10:00:37.808Z","userAgent":"curl/8.7.1"}
+{"ip":"::1","level":"info","message":"GET /api/sessions","service":"shell-viewer","timestamp":"2025-08-25T10:01:08.942Z","userAgent":"curl/8.7.1"}
+{"ip":"::1","level":"info","message":"GET /api/sessions","service":"shell-viewer","timestamp":"2025-08-25T10:03:07.725Z","userAgent":"curl/8.7.1"}

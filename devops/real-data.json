@@ -1,71 +1,27 @@
 {
-  "timestamp": "2025-08-25T09:59:41.894Z",
+  "timestamp": "2025-08-25T10:03:58.370Z",
   "agents": {
     "active": [
-      {
-        "id": "agent_63089",
-        "pid": "63089",
-        "name": "Claude Session s001",
-        "status": "active",
-        "cpu": "34.8%",
-        "memory": "0.6%",
-        "tty": "s001",
-        "type": "devops",
-        "uptime": "NaNh NaNm"
-      },
       {
         "id": "agent_9075",
         "pid": "9075",
         "name": "Claude Session s009",
         "status": "active",
-        "cpu": "19.1%",
-        "memory": "1.7%",
+        "cpu": "9.1%",
+        "memory": "1.6%",
         "tty": "s009",
         "type": "analyst",
         "uptime": "NaNh NaNm"
       },
       {
-        "id": "agent_70803",
-        "pid": "70803",
-        "name": "Claude Session s001",
+        "id": "agent_19655",
+        "pid": "19655",
+        "name": "Claude Session s002",
         "status": "active",
-        "cpu": "9.9%",
-        "memory": "1.8%",
-        "tty": "s001",
-        "type": "devops",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_79198",
-        "pid": "79198",
-        "name": "Claude Session s006",
-        "status": "active",
-        "cpu": "6.9%",
-        "memory": "2.9%",
-        "tty": "s006",
-        "type": "devops",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_51819",
-        "pid": "51819",
-        "name": "Claude Session s003",
-        "status": "active",
-        "cpu": "6.3%",
-        "memory": "2.2%",
-        "tty": "s003",
-        "type": "monitor",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_91692",
-        "pid": "91692",
-        "name": "Claude Session s008",
-        "status": "active",
-        "cpu": "4.6%",
-        "memory": "2.6%",
-        "tty": "s008",
-        "type": "monitor",
+        "cpu": "7.7%",
+        "memory": "3.6%",
+        "tty": "s002",
+        "type": "tester",
         "uptime": "NaNh NaNm"
       },
       {
@@ -73,21 +29,21 @@
         "pid": "72728",
         "name": "Claude Session s000",
         "status": "active",
-        "cpu": "2.8%",
-        "memory": "1.5%",
+        "cpu": "7.6%",
+        "memory": "1.3%",
         "tty": "s000",
         "type": "developer",
         "uptime": "NaNh NaNm"
       },
       {
-        "id": "agent_71455",
-        "pid": "71455",
-        "name": "Claude Session s005",
+        "id": "agent_70803",
+        "pid": "70803",
+        "name": "Claude Session s001",
         "status": "active",
-        "cpu": "2.8%",
-        "memory": "2.0%",
-        "tty": "s005",
-        "type": "developer",
+        "cpu": "4.8%",
+        "memory": "1.5%",
+        "tty": "s001",
+        "type": "devops",
         "uptime": "NaNh NaNm"
       },
       {
@@ -95,32 +51,140 @@
         "pid": "84850",
         "name": "Claude Session s007",
         "status": "active",
-        "cpu": "2.2%",
-        "memory": "1.7%",
+        "cpu": "4.1%",
+        "memory": "1.5%",
         "tty": "s007",
         "type": "tester",
         "uptime": "NaNh NaNm"
       },
       {
-        "id": "agent_63079",
-        "pid": "63079",
-        "name": "Claude Session s001",
+        "id": "agent_71455",
+        "pid": "71455",
+        "name": "Claude Session s005",
         "status": "active",
-        "cpu": "0.9%",
-        "memory": "0.0%",
-        "tty": "s001",
-        "type": "devops",
+        "cpu": "3.9%",
+        "memory": "1.3%",
+        "tty": "s005",
+        "type": "developer",
         "uptime": "NaNh NaNm"
       },
       {
-        "id": "agent_63083",
-        "pid": "63083",
-        "name": "Claude Session s001",
+        "id": "agent_91692",
+        "pid": "91692",
+        "name": "Claude Session s008",
         "status": "active",
-        "cpu": "0.4%",
+        "cpu": "3.9%",
+        "memory": "2.2%",
+        "tty": "s008",
+        "type": "monitor",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_51819",
+        "pid": "51819",
+        "name": "Claude Session s003",
+        "status": "active",
+        "cpu": "2.4%",
+        "memory": "1.6%",
+        "tty": "s003",
+        "type": "monitor",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_79068",
+        "pid": "79068",
+        "name": "Claude Session ??",
+        "status": "active",
+        "cpu": "0.3%",
         "memory": "0.0%",
-        "tty": "s001",
-        "type": "devops",
+        "tty": "??",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_67566",
+        "pid": "67566",
+        "name": "Claude Session ??",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.0%",
+        "tty": "??",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_9305",
+        "pid": "9305",
+        "name": "Claude Session s009",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.2%",
+        "tty": "s009",
+        "type": "analyst",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_9272",
+        "pid": "9272",
+        "name": "Claude Session s009",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.2%",
+        "tty": "s009",
+        "type": "analyst",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_9261",
+        "pid": "9261",
+        "name": "Claude Session s009",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.2%",
+        "tty": "s009",
+        "type": "analyst",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_9131",
+        "pid": "9131",
+        "name": "Claude Session s009",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.3%",
+        "tty": "s009",
+        "type": "analyst",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_91882",
+        "pid": "91882",
+        "name": "Claude Session s008",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.2%",
+        "tty": "s008",
+        "type": "monitor",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_91871",
+        "pid": "91871",
+        "name": "Claude Session s008",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.2%",
+        "tty": "s008",
+        "type": "monitor",
+        "uptime": "NaNh NaNm"
+      },
+      {
+        "id": "agent_91860",
+        "pid": "91860",
+        "name": "Claude Session s008",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "0.2%",
+        "tty": "s008",
+        "type": "monitor",
         "uptime": "NaNh NaNm"
       },
       {
@@ -151,7 +215,7 @@
         "name": "Claude Session s007",
         "status": "active",
         "cpu": "0.0%",
-        "memory": "0.3%",
+        "memory": "0.2%",
         "tty": "s007",
         "type": "tester",
         "uptime": "NaNh NaNm"
@@ -195,7 +259,7 @@
         "name": "Claude Session s006",
         "status": "active",
         "cpu": "0.0%",
-        "memory": "0.3%",
+        "memory": "0.2%",
         "tty": "s006",
         "type": "devops",
         "uptime": "NaNh NaNm"
@@ -223,6 +287,17 @@
         "uptime": "NaNh NaNm"
       },
       {
+        "id": "agent_79198",
+        "pid": "79198",
+        "name": "Claude Session s006",
+        "status": "active",
+        "cpu": "0.0%",
+        "memory": "1.4%",
+        "tty": "s006",
+        "type": "devops",
+        "uptime": "NaNh NaNm"
+      },
+      {
         "id": "agent_72893",
         "pid": "72893",
         "name": "Claude Session s000",
@@ -239,7 +314,7 @@
         "name": "Claude Session s000",
         "status": "active",
         "cpu": "0.0%",
-        "memory": "0.3%",
+        "memory": "0.2%",
         "tty": "s000",
         "type": "developer",
         "uptime": "NaNh NaNm"
@@ -283,7 +358,7 @@
         "name": "Claude Session s005",
         "status": "active",
         "cpu": "0.0%",
-        "memory": "0.3%",
+        "memory": "0.2%",
         "tty": "s005",
         "type": "developer",
         "uptime": "NaNh NaNm"
@@ -327,7 +402,7 @@
         "name": "Claude Session s001",
         "status": "active",
         "cpu": "0.0%",
-        "memory": "0.3%",
+        "memory": "0.2%",
         "tty": "s001",
         "type": "devops",
         "uptime": "NaNh NaNm"
@@ -458,7 +533,7 @@
         "name": "Claude Session s004",
         "status": "active",
         "cpu": "0.0%",
-        "memory": "2.0%",
+        "memory": "0.4%",
         "tty": "s004",
         "type": "analyst",
         "uptime": "NaNh NaNm"
@@ -482,104 +557,6 @@
         "memory": "0.0%",
         "tty": "??",
         "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_63111",
-        "pid": "63111",
-        "name": "Claude Session ??",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.0%",
-        "tty": "??",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_19655",
-        "pid": "19655",
-        "name": "Claude Session s002",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.9%",
-        "tty": "s002",
-        "type": "tester",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_9305",
-        "pid": "9305",
-        "name": "Claude Session s009",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.2%",
-        "tty": "s009",
-        "type": "analyst",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_9272",
-        "pid": "9272",
-        "name": "Claude Session s009",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.3%",
-        "tty": "s009",
-        "type": "analyst",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_9261",
-        "pid": "9261",
-        "name": "Claude Session s009",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.2%",
-        "tty": "s009",
-        "type": "analyst",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_9131",
-        "pid": "9131",
-        "name": "Claude Session s009",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.3%",
-        "tty": "s009",
-        "type": "analyst",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_91882",
-        "pid": "91882",
-        "name": "Claude Session s008",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.2%",
-        "tty": "s008",
-        "type": "monitor",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_91871",
-        "pid": "91871",
-        "name": "Claude Session s008",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.3%",
-        "tty": "s008",
-        "type": "monitor",
-        "uptime": "NaNh NaNm"
-      },
-      {
-        "id": "agent_91860",
-        "pid": "91860",
-        "name": "Claude Session s008",
-        "status": "active",
-        "cpu": "0.0%",
-        "memory": "0.2%",
-        "tty": "s008",
-        "type": "monitor",
-        "uptime": "NaNh NaNm"
       }
     ],
     "inactive": [],
@@ -587,74 +564,74 @@
   },
   "shells": [
     {
-      "pid": "63089",
-      "cpu": "44.6",
-      "memory": "0.6",
-      "command": "npm exec claude-flow@alpha hooks pre-edit --file /",
-      "tty": "s001"
+      "pid": "19655",
+      "cpu": "39.4",
+      "memory": "3.7",
+      "command": "claude ",
+      "tty": "s002"
     },
     {
       "pid": "9075",
-      "cpu": "23.8",
-      "memory": "1.7",
+      "cpu": "30.4",
+      "memory": "1.6",
       "command": "claude ",
       "tty": "s009"
     },
     {
-      "pid": "79198",
-      "cpu": "7.8",
-      "memory": "2.9",
-      "command": "claude ",
-      "tty": "s006"
-    },
-    {
-      "pid": "70803",
-      "cpu": "7.7",
-      "memory": "1.8",
-      "command": "claude ",
-      "tty": "s001"
-    },
-    {
-      "pid": "51819",
-      "cpu": "6.0",
-      "memory": "2.2",
-      "command": "claude ",
-      "tty": "s003"
-    },
-    {
       "pid": "91692",
-      "cpu": "5.5",
-      "memory": "2.6",
+      "cpu": "11.9",
+      "memory": "2.2",
       "command": "claude ",
       "tty": "s008"
     },
     {
+      "pid": "79147",
+      "cpu": "11.5",
+      "memory": "0.4",
+      "command": "npm exec claude-flow@alpha hooks pre-edit --file /",
+      "tty": "s008"
+    },
+    {
       "pid": "72728",
-      "cpu": "2.9",
-      "memory": "1.5",
+      "cpu": "8.6",
+      "memory": "1.3",
       "command": "claude ",
       "tty": "s000"
     },
     {
+      "pid": "70803",
+      "cpu": "5.5",
+      "memory": "1.5",
+      "command": "claude ",
+      "tty": "s001"
+    },
+    {
       "pid": "71455",
-      "cpu": "2.4",
-      "memory": "2.0",
+      "cpu": "4.3",
+      "memory": "1.3",
       "command": "claude ",
       "tty": "s005"
     },
     {
       "pid": "84850",
-      "cpu": "2.0",
-      "memory": "1.7",
+      "cpu": "4.2",
+      "memory": "1.5",
       "command": "claude ",
       "tty": "s007"
     },
     {
-      "pid": "63111",
-      "cpu": "1.0",
+      "pid": "51819",
+      "cpu": "2.6",
+      "memory": "1.6",
+      "command": "claude ",
+      "tty": "s003"
+    },
+    {
+      "pid": "79129",
+      "cpu": "1.3",
       "memory": "0.0",
-      "command": "/bin/zsh -c -l source /Users/Danallovertheplace/.c",
-      "tty": "??"
+      "command": "/bin/sh -c cat | jq -r '.tool_input.file_path // .",
+      "tty": "s008"
     }
   ],
   "projects": [
@@ -717,12 +694,12 @@
   ],
   "performance": {
     "loadAverage": [
-      3.36,
-      5.44,
-      5.45
+      6.36,
+      5.69,
+      5.56
     ],
-    "memoryUsageGB": "4.65",
-    "totalMemoryGB": "5.93",
+    "memoryUsageGB": "3.57",
+    "totalMemoryGB": "3.87",
     "cpuCores": 10
   },
   "tokens": {
@@ -742,8 +719,8 @@
     }
   },
   "git": {
-    "commitsToday": 20,
-    "modifiedFiles": 68,
+    "commitsToday": 21,
+    "modifiedFiles": 12,
     "currentBranch": "main"
   }
 }
