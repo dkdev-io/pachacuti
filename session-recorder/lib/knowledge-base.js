@@ -8,6 +8,7 @@ const lunr = require('lunr');
 const path = require('path');
 const fs = require('fs').promises;
 const { logger } = require('./logger');
+const SafeSerializer = require('./safe-serializer');
 
 class KnowledgeBase {
   constructor() {
@@ -15,6 +16,13 @@ class KnowledgeBase {
     this.searchIndex = null;
     this.documents = new Map();
     this.dbPath = path.join(__dirname, '../data/knowledge.db');
+    
+    // Initialize safe serializer for knowledge base operations
+    this.serializer = new SafeSerializer({
+      maxContentLength: 10 * 1024, // 10KB max for individual content
+      maxStringLength: 100 * 1024 * 1024, // 100MB max for exports
+      maxArrayItems: 10000 // More items for knowledge base
+    });
   }
 
   async initialize() {
@@ -199,7 +207,7 @@ class KnowledgeBase {
         sessionData.start,
         sessionData.end,
         sessionData.duration,
-        JSON.stringify(sessionData.keyAchievements),
+        this.serializer.safeStringify(sessionData.keyAchievements),
         sessionData.statistics.totalActivities,
         sessionData.statistics.fileChanges,
         sessionData.statistics.gitCommits,
@@ -292,7 +300,7 @@ class KnowledgeBase {
       id: sessionData.sessionId,
       type: 'session',
       title: `Session ${sessionData.sessionId}`,
-      content: JSON.stringify(sessionData),
+      content: this.serializer.safeStringify(sessionData),
       tags: this.extractTags(sessionData)
     });
   }
@@ -333,14 +341,15 @@ class KnowledgeBase {
     );
     
     await fs.mkdir(path.dirname(snapshotPath), { recursive: true });
-    await fs.writeFile(snapshotPath, JSON.stringify(snapshot, null, 2));
+    const serializedSnapshot = this.serializer.safeStringify(snapshot, null, 2);
+    await fs.writeFile(snapshotPath, serializedSnapshot);
     
     // Add to search index
     await this.addToSearchIndex({
       id: `snapshot-${snapshot.sessionId}-${snapshot.timestamp}`,
       type: 'snapshot',
       title: `Snapshot for ${snapshot.sessionId}`,
-      content: JSON.stringify(snapshot.recentActivity),
+      content: this.serializer.safeStringify(snapshot.recentActivity),
       tags: ['snapshot', snapshot.sessionId]
     });
   }
@@ -354,7 +363,7 @@ class KnowledgeBase {
         doc.type,
         doc.title,
         doc.content,
-        JSON.stringify(doc.tags),
+        this.serializer.safeStringify(doc.tags),
         new Date().toISOString()
       ]
     );
@@ -611,7 +620,8 @@ class KnowledgeBase {
     await fs.mkdir(path.dirname(exportPath), { recursive: true });
     
     if (format === 'json') {
-      await fs.writeFile(exportPath, JSON.stringify(exportData, null, 2));
+      const serializedData = this.serializer.safeStringify(exportData, null, 2);
+      await fs.writeFile(exportPath, serializedData);
     } else if (format === 'markdown') {
       const markdown = this.convertToMarkdown(exportData);
       await fs.writeFile(exportPath, markdown);

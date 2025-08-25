@@ -7,6 +7,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const GitAnalyzer = require('./git-analyzer');
 const { logger } = require('./logger');
+const SafeSerializer = require('./safe-serializer');
 
 class HistoryRecovery {
   constructor() {
@@ -17,6 +18,13 @@ class HistoryRecovery {
       logs: true,
       documentation: true
     };
+    
+    // Initialize safe serializer for history recovery
+    this.serializer = new SafeSerializer({
+      maxContentLength: 50 * 1024, // 50KB max for content
+      maxStringLength: 200 * 1024 * 1024, // 200MB max for history exports
+      maxArrayItems: 5000
+    });
   }
 
   async recoverHistory() {
@@ -640,7 +648,8 @@ class HistoryRecovery {
     );
     
     await fs.mkdir(path.dirname(historyPath), { recursive: true });
-    await fs.writeFile(historyPath, JSON.stringify(history, null, 2));
+    const serializedHistory = this.serializer.safeStringify(history, null, 2);
+    await fs.writeFile(historyPath, serializedHistory);
     
     logger.info(`History saved to ${historyPath}`);
   }

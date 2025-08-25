@@ -7,6 +7,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const EventEmitter = require('events');
 const { logger } = require('./logger');
+const SafeSerializer = require('./safe-serializer');
 
 class SessionCapture extends EventEmitter {
   constructor() {
@@ -20,6 +21,13 @@ class SessionCapture extends EventEmitter {
     this.decisions = [];
     this.problems = [];
     this.solutions = [];
+    
+    // Initialize safe serializer with session-specific limits
+    this.serializer = new SafeSerializer({
+      maxContentLength: 50 * 1024, // 50KB max for file content
+      maxStringLength: 50 * 1024 * 1024, // 50MB max total
+      maxArrayItems: 500 // Limit activities array
+    });
   }
 
   generateSessionId() {
@@ -29,13 +37,14 @@ class SessionCapture extends EventEmitter {
   }
 
   async recordFileChange(event) {
+    // Sanitize and limit content size to prevent crashes
     const change = {
       timestamp: new Date().toISOString(),
       type: event.type,
       file: event.path,
       action: event.action,
-      content: event.content || null,
-      diff: event.diff || null
+      content: this.sanitizeContent(event.content),
+      diff: this.sanitizeContent(event.diff)
     };
     
     this.fileChanges.push(change);
@@ -44,6 +53,9 @@ class SessionCapture extends EventEmitter {
       timestamp: change.timestamp,
       details: change
     });
+    
+    // Trim activities if too many
+    this.trimActivitiesIfNeeded();
     
     await this.persist();
   }
@@ -284,28 +296,132 @@ class SessionCapture extends EventEmitter {
     }
   }
 
+  /**
+   * Sanitize content to prevent excessive memory usage
+   */
+  sanitizeContent(content) {
+    if (!content) return null;
+    
+    if (typeof content === 'string') {
+      // Limit content to 10KB to prevent massive session files
+      if (content.length > 10 * 1024) {
+        logger.warn(`Large content detected (${content.length} chars), truncating`);
+        return {
+          truncated: true,
+          originalSize: content.length,
+          preview: content.substring(0, 1000),
+          summary: `[Content truncated - originally ${content.length} characters]`
+        };
+      }
+      return content;
+    }
+    
+    // For other types, convert to string and apply same logic
+    const stringified = String(content);
+    return this.sanitizeContent(stringified);
+  }
+
+  /**
+   * Trim activities array if it gets too large
+   */
+  trimActivitiesIfNeeded() {
+    const maxActivities = 1000; // Keep only last 1000 activities
+    
+    if (this.activities.length > maxActivities) {
+      const removed = this.activities.length - maxActivities;
+      this.activities = this.activities.slice(-maxActivities);
+      
+      // Add a marker for trimmed activities
+      this.activities.unshift({
+        type: 'system_info',
+        timestamp: new Date().toISOString(),
+        details: {
+          message: `Trimmed ${removed} older activities to prevent memory issues`,
+          originalCount: this.activities.length + removed,
+          trimmedTo: maxActivities
+        }
+      });
+      
+      logger.info(`Trimmed session activities: removed ${removed} old entries`);
+    }
+  }
+
+  /**
+   * Create minimal backup when main persistence fails
+   */
+  async createMinimalBackup() {
+    try {
+      const backupFile = path.join(
+        __dirname, 
+        '../data/sessions', 
+        `${this.sessionId}.backup.json`
+      );
+      
+      const minimalData = {
+        sessionId: this.sessionId,
+        start: this.sessionStart,
+        lastUpdate: new Date().toISOString(),
+        error: 'Main session file too large, created minimal backup',
+        statistics: {
+          activitiesCount: this.activities.length,
+          fileChangesCount: this.fileChanges.length,
+          commitsCount: this.gitCommits.length,
+          commandsCount: this.commands.length
+        },
+        recentActivities: this.activities.slice(-5) // Just last 5 activities
+      };
+      
+      await fs.writeFile(backupFile, JSON.stringify(minimalData, null, 2));
+      logger.info(`Created minimal backup: ${backupFile}`);
+      
+    } catch (backupError) {
+      logger.error('Failed to create minimal backup:', backupError.message);
+    }
+  }
+
   async persist() {
-    const sessionFile = path.join(
-      __dirname, 
-      '../data/sessions', 
-      `${this.sessionId}.json`
-    );
-    
-    const sessionData = {
-      sessionId: this.sessionId,
-      start: this.sessionStart,
-      lastUpdate: new Date().toISOString(),
-      activities: this.activities,
-      fileChanges: this.fileChanges,
-      gitCommits: this.gitCommits,
-      commands: this.commands,
-      decisions: this.decisions,
-      problems: this.problems,
-      solutions: this.solutions
-    };
-    
-    await fs.mkdir(path.dirname(sessionFile), { recursive: true });
-    await fs.writeFile(sessionFile, JSON.stringify(sessionData, null, 2));
+    try {
+      const sessionFile = path.join(
+        __dirname, 
+        '../data/sessions', 
+        `${this.sessionId}.json`
+      );
+      
+      const sessionData = {
+        sessionId: this.sessionId,
+        start: this.sessionStart,
+        lastUpdate: new Date().toISOString(),
+        activities: this.activities,
+        fileChanges: this.fileChanges,
+        gitCommits: this.gitCommits,
+        commands: this.commands,
+        decisions: this.decisions,
+        problems: this.problems,
+        solutions: this.solutions,
+        metadata: {
+          activitiesCount: this.activities.length,
+          serializedSafely: true
+        }
+      };
+      
+      await fs.mkdir(path.dirname(sessionFile), { recursive: true });
+      
+      // Use safe serializer to prevent RangeError crashes
+      const serializedData = this.serializer.safeStringify(sessionData, null, 2);
+      await fs.writeFile(sessionFile, serializedData);
+      
+      logger.debug(`Session persisted: ${this.sessionId}, activities: ${this.activities.length}`);
+      
+    } catch (error) {
+      logger.error('Failed to persist session:', {
+        sessionId: this.sessionId,
+        error: error.message,
+        activitiesCount: this.activities.length
+      });
+      
+      // Create minimal backup with just metadata
+      await this.createMinimalBackup();
+    }
   }
 }
 
