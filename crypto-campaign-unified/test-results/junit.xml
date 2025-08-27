@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="22" failures="0" errors="0" time="0.016001">
+    <testsuite name="src/utils/analytics.test.js" timestamp="2025-08-25T15:24:23.889Z" hostname="mac.lan" tests="22" failures="0" errors="0" skipped="0" time="0.016001">
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateConversionRate &gt; should calculate correct conversion rate" time="0.002696709">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateConversionRate &gt; should return 0 for zero clicks" time="0.000230125">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateConversionRate &gt; should handle zero conversions" time="0.000102375">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCTR &gt; should calculate correct CTR" time="0.000538459">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCTR &gt; should return 0 for zero impressions" time="0.000260833">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCTR &gt; should handle zero clicks" time="0.000121834">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCPC &gt; should calculate correct CPC" time="0.000269333">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCPC &gt; should return 0 for zero clicks" time="0.000113667">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCPC &gt; should handle zero spend" time="0.000091292">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCPA &gt; should calculate correct CPA" time="0.000278916">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCPA &gt; should return 0 for zero conversions" time="0.000110833">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateCPA &gt; should handle zero spend" time="0.000091958">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateROAS &gt; should calculate correct ROAS" time="0.000162417">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateROAS &gt; should return 0 for zero spend" time="0.00009225">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; calculateROAS &gt; should handle zero revenue" time="0.000106875">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; generateAnalyticsReport &gt; should generate complete analytics report" time="0.001795375">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; generateAnalyticsReport &gt; should handle missing revenue" time="0.000202125">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; generateAnalyticsReport &gt; should throw error for invalid metrics" time="0.001813709">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; generateAnalyticsReport &gt; should handle metrics with zero values" time="0.000236916">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; compareAnalyticsPeriods &gt; should compare two periods correctly" time="0.0004745">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; compareAnalyticsPeriods &gt; should handle zero previous values" time="0.000290625">
+        </testcase>
+        <testcase classname="src/utils/analytics.test.js" name="Analytics Utils &gt; compareAnalyticsPeriods &gt; should handle negative changes" time="0.000244292">
+        </testcase>
+    </testsuite>
+</testsuites>

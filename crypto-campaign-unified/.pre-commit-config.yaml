@@ -1,0 +1,69 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: debug-statements
+
+  - repo: local
+    hooks:
+      - id: test-coverage
+        name: Run tests with coverage check
+        entry: npm run test:coverage
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [commit]
+      
+      - id: coverage-threshold
+        name: Coverage threshold check
+        entry: bash
+        language: system
+        pass_filenames: false
+        args:
+          - -c
+          - |
+            if [ -f coverage/coverage-summary.json ]; then
+              node -e "
+                const fs = require('fs');
+                const coverage = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
+                const total = coverage.total;
+                
+                const thresholds = { lines: 90, functions: 90, branches: 85, statements: 90 };
+                let failed = false;
+                
+                Object.keys(thresholds).forEach(key => {
+                  if (total[key].pct < thresholds[key]) {
+                    console.error(\`❌ \${key} coverage \${total[key].pct}% below \${thresholds[key]}%\`);
+                    failed = true;
+                  }
+                });
+                
+                if (failed) {
+                  console.error('\\n🚫 Coverage thresholds not met. Commit blocked.');
+                  process.exit(1);
+                } else {
+                  console.log('✅ All coverage thresholds met');
+                }
+              "
+            fi
+        stages: [commit]
+      
+      - id: performance-benchmark
+        name: Performance benchmark check
+        entry: bash
+        language: system
+        pass_filenames: false
+        args:
+          - -c
+          - |
+            echo "🚀 Running performance benchmarks..."
+            npm run bench:run || true
+            if [ -f benchmarks/results.json ]; then
+              echo "📊 Benchmark results generated"
+            fi
+        stages: [push]

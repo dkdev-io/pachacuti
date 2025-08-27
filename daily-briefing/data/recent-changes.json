@@ -1,7 +1,7 @@
 {
-  "date": "2025-08-25",
+  "date": "2025-08-26",
   "changes": [
-    "Claude Code updated to 1.0.90 (Claude Code)",
+    "Claude Code updated to 1.0.92 (Claude Code)",
     "New agent available: general-purpose",
     "New agent available: coder",
     "New agent available: reviewer",

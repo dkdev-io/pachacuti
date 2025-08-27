@@ -1,0 +1,24 @@
+❌ Failed to initialize Slack: An API error occurred: not_authed
+✅ Slack components initialized
+🚀 Webhook server listening on port 3000
+📡 Interactive endpoint: http://localhost:3000/slack/interactive
+📡 Commands endpoint: http://localhost:3000/slack/commands
+📡 Events endpoint: http://localhost:3000/slack/events
+No signing secret configured
+<anonymous_script>:1
+payload={"type":"test"}
+^
+
+SyntaxError: Unexpected token 'p', "payload={""... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /Users/Danallovertheplace/pachacuti/lib/slack-integration/webhook-handler.js:60:28
+    at Layer.handle [as handle_request] (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/express/lib/router/index.js:280:10)
+    at urlencodedParser (/Users/Danallovertheplace/pachacuti/lib/slack-integration/node_modules/body-parser/lib/types/urlencoded.js:85:7)
+
+Node.js v22.18.0

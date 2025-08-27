@@ -38,6 +38,9 @@ class PachacutiShellViewerServer {
     this.aiSearchController = new AISearchController();
     this.webTerminal = new WebTerminal(this.io);
     
+    // Inject dependencies
+    this.aiSearchController.setSessionManager(this.sessionManager);
+    
     this.setupMiddleware();
     this.setupRoutes();
     this.setupSocketHandlers();
@@ -64,6 +67,32 @@ class PachacutiShellViewerServer {
   }
 
   setupRoutes() {
+    // Root endpoint - API documentation
+    this.app.get('/', (req, res) => {
+      res.json({
+        name: 'Pachacuti Shell Viewer API',
+        version: '1.0.0',
+        description: 'AI-powered shell session viewer and search API',
+        timestamp: new Date().toISOString(),
+        endpoints: {
+          'GET /': 'API documentation (this endpoint)',
+          'GET /api/health': 'Health check',
+          'GET /api/sessions': 'List all sessions',
+          'GET /api/sessions/:id': 'Get specific session',
+          'GET /api/sessions/:id/commands': 'Get session commands',
+          'GET /api/sessions/:id/timeline': 'Get session timeline',
+          'GET /api/sessions/:id/export': 'Export session data',
+          'GET /api/search?query=term': 'Search sessions, commands, and logs',
+          'POST /api/search': 'Advanced search with filters',
+          'POST /api/ask': 'Ask AI questions about sessions',
+          'POST /api/analyze-command': 'Analyze command output',
+          'GET /api/stats': 'Get session statistics'
+        },
+        websocket: `ws://localhost:${this.port}`,
+        status: 'running'
+      });
+    });
+
     // Health check
     this.app.get('/api/health', (req, res) => {
       res.json({
@@ -119,6 +148,50 @@ class PachacutiShellViewerServer {
     });
 
     // AI Search routes
+    // GET version for simple query parameter searches
+    this.app.get('/api/search', async (req, res) => {
+      try {
+        const { query, sessionIds, limit = 50, type } = req.query;
+        
+        if (!query) {
+          return res.status(400).json({ 
+            error: 'Query parameter is required',
+            usage: 'GET /api/search?query=your-search-term&limit=50&type=commands'
+          });
+        }
+
+        const filters = {};
+        if (type) {
+          filters.type = type; // commands, sessions, logs
+        }
+        if (limit) {
+          filters.limit = parseInt(limit);
+        }
+
+        const searchOptions = {
+          query,
+          filters
+        };
+
+        if (sessionIds) {
+          searchOptions.sessionIds = sessionIds.split(',');
+        }
+
+        const results = await this.aiSearchController.search(searchOptions);
+
+        res.json({
+          query,
+          resultCount: results.length || 0,
+          results,
+          searchParams: searchOptions
+        });
+      } catch (error) {
+        logger.error('GET search error:', error);
+        res.status(500).json({ error: 'Search failed' });
+      }
+    });
+
+    // POST version for advanced searches with complex filters
     this.app.post('/api/search', async (req, res) => {
       try {
         const { query, sessionIds, filters } = req.body;

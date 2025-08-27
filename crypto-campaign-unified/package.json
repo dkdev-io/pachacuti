@@ -1,0 +1,68 @@
+{
+  "name": "crypto-campaign-unified",
+  "version": "1.0.0",
+  "description": "Comprehensive security testing suite for crypto-campaign-unified platform",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:coverage:watch": "vitest --coverage --watch",
+    "test:coverage:ui": "vitest --coverage --ui",
+    "security:test": "node tests/security/run-security-tests.js",
+    "security:audit": "node tests/security/audit/security-audit-report.js",
+    "security:quick": "vitest run tests/security/input-validation tests/security/auth",
+    "security:full": "npm run security:test",
+    "coverage:analyze": "node scripts/coverage-analysis.js",
+    "coverage:report": "npm run test:coverage && npm run coverage:analyze",
+    "bench": "vitest bench",
+    "bench:run": "vitest bench --run",
+    "quality:check": "npm run test:coverage && npm run coverage:analyze && npm run bench:run",
+    "pre-commit": "npm run quality:check",
+    "security:compliance": "vitest run tests/security/compliance",
+    "security:penetration": "vitest run tests/security/penetration",
+    "security:smart-contracts": "vitest run tests/security/smart-contracts",
+    "security:api": "vitest run tests/security/api",
+    "security:financial": "vitest run tests/security/financial",
+    "build": "echo 'Build script placeholder'",
+    "start": "echo 'Start script placeholder'",
+    "lint": "echo 'Lint script placeholder - add ESLint configuration'",
+    "format": "echo 'Format script placeholder - add Prettier configuration'"
+  },
+  "keywords": [
+    "security",
+    "crypto",
+    "campaign",
+    "blockchain",
+    "testing",
+    "compliance",
+    "penetration-testing",
+    "vulnerability-assessment"
+  ],
+  "author": "Security Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "happy-dom": "^18.0.1",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/crypto-campaign-unified.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/crypto-campaign-unified/issues"
+  },
+  "homepage": "https://github.com/your-org/crypto-campaign-unified#readme"
+}

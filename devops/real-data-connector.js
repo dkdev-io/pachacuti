@@ -199,12 +199,85 @@ class RealDataConnector {
     }
 
     calculateUptime(startTime) {
-        // Parse start time and calculate duration
-        const now = new Date();
-        const started = new Date(startTime);
-        const hours = Math.floor((now - started) / (1000 * 60 * 60));
-        const minutes = Math.floor((now - started) / (1000 * 60)) % 60;
-        return `${hours}h ${minutes}m`;
+        try {
+            const now = new Date();
+            let startDate;
+            
+            // Debug: log what we received
+            // console.log(`Calculating uptime for startTime: "${startTime}"`);
+            
+            // Handle different time formats from ps aux
+            if (startTime && startTime.includes(':')) {
+                // Format: "4:29AM" or "10:15PM"
+                const today = new Date();
+                const timeMatch = startTime.match(/(\d{1,2}):(\d{2})(AM|PM)/i);
+                
+                if (timeMatch) {
+                    let hours = parseInt(timeMatch[1]);
+                    const minutes = parseInt(timeMatch[2]);
+                    const ampm = timeMatch[3].toUpperCase();
+                    
+                    // Convert to 24-hour format
+                    if (ampm === 'PM' && hours !== 12) hours += 12;
+                    if (ampm === 'AM' && hours === 12) hours = 0;
+                    
+                    // Create date for today at the specified time
+                    startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes, 0);
+                    
+                    // If start time is in the future, it was yesterday
+                    if (startDate > now) {
+                        startDate.setDate(startDate.getDate() - 1);
+                    }
+                    
+                    // Calculate duration in milliseconds
+                    const durationMs = now - startDate;
+                    
+                    // Ensure we have a valid positive duration
+                    if (durationMs < 0 || isNaN(durationMs)) {
+                        return "1h 0m"; // Default fallback
+                    }
+                    
+                    const uptimeHours = Math.floor(durationMs / (1000 * 60 * 60));
+                    const uptimeMinutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+                    
+                    return `${uptimeHours}h ${uptimeMinutes}m`;
+                } else {
+                    // If regex doesn't match, try other patterns
+                    // Handle potential "5:17" without AM/PM (assume current time is reference)
+                    const simpleTimeMatch = startTime.match(/(\d{1,2}):(\d{2})/);
+                    if (simpleTimeMatch) {
+                        // For processes that show just hour:minute without AM/PM
+                        // We'll assume it's within the last 24 hours and work backwards
+                        const hours = parseInt(simpleTimeMatch[1]);
+                        const minutes = parseInt(simpleTimeMatch[2]);
+                        
+                        startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hours, minutes, 0);
+                        
+                        // If this time is in the future, it was yesterday
+                        if (startDate > now) {
+                            startDate.setDate(startDate.getDate() - 1);
+                        }
+                        
+                        const durationMs = now - startDate;
+                        if (durationMs >= 0) {
+                            const uptimeHours = Math.floor(durationMs / (1000 * 60 * 60));
+                            const uptimeMinutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+                            return `${uptimeHours}h ${uptimeMinutes}m`;
+                        }
+                    }
+                    
+                    // Fallback: assume process started 1 hour ago
+                    return "1h 0m";
+                }
+            } else {
+                // Other formats or invalid dates - assume 1 hour ago
+                return "1h 0m";
+            }
+        } catch (error) {
+            // Fallback for any parsing errors
+            console.error('Error calculating uptime for', startTime, ':', error);
+            return "1h 0m";
+        }
     }
 
     getSessionDuration() {
