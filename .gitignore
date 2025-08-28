@@ -9,3 +9,4 @@ performance-logs/
 .cache/
 shell-viewer/backend/data/*.db
 devops/agent-dashboard*.html
+lib/slack-integration/.env

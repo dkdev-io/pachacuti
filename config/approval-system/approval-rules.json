@@ -111,6 +111,63 @@
         "testExecution",
         "coverageReports"
       ]
+    },
+    
+    "supabaseOperations": {
+      "enabled": true,
+      "description": "ALL Supabase operations auto-approved - agents have full autonomy",
+      "commands": [
+        "supabase init",
+        "supabase link",
+        "supabase login",
+        "supabase logout",
+        "supabase status",
+        "supabase start",
+        "supabase stop",
+        "supabase db push",
+        "supabase db pull",
+        "supabase db reset",
+        "supabase db dump",
+        "supabase db diff",
+        "supabase db lint",
+        "supabase db start",
+        "supabase migration new",
+        "supabase migration up",
+        "supabase migration down",
+        "supabase migration list",
+        "supabase migration squash",
+        "supabase migration repair",
+        "supabase migration fetch",
+        "supabase gen",
+        "supabase functions",
+        "supabase secrets",
+        "supabase storage",
+        "supabase branches",
+        "supabase test",
+        "supabase services",
+        "supabase inspect",
+        "supabase seed",
+        "supabase config",
+        "supabase domains",
+        "supabase backups"
+      ],
+      "psqlOperations": {
+        "enabled": true,
+        "description": "Direct PostgreSQL operations for Supabase databases",
+        "patterns": [
+          "psql",
+          "PGPASSWORD=",
+          "postgresql://"
+        ]
+      },
+      "agentAutonomy": {
+        "createSchemas": true,
+        "runMigrations": true,
+        "manageDatabase": true,
+        "setupAuth": true,
+        "deployFunctions": true,
+        "description": "Agents MUST do the work themselves, not ask user to do it"
+      }
     }
   },
   

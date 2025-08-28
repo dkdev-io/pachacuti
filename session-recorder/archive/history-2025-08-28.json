@@ -1,0 +1,424 @@
+{
+  "projects": {
+    "pachacuti": {
+      "name": "pachacuti",
+      "created": "2025-08-28T10:34:29-05:00",
+      "lastUpdated": "2025-08-23T12:23:56-05:00",
+      "commits": 51,
+      "contributors": [
+        "dan@dkdev.io"
+      ],
+      "milestones": [],
+      "timeline": {
+        "2025-08-28": [
+          {
+            "time": "10:34:29-05:00",
+            "message": "fix: Complete Slack approval integration and quality control fixes",
+            "hash": "c1ed0b292c50f175bdb45df1be8ccb0bf75662f3"
+          }
+        ],
+        "2025-08-26": [
+          {
+            "time": "21:23:48-05:00",
+            "message": "fix: Update performance and task metrics after checkout session",
+            "hash": "4262a5bb7a284890d1815bdb5414d7901c93b875"
+          },
+          {
+            "time": "21:19:07-05:00",
+            "message": "📝 Session checkout: Comprehensive code review and system analysis",
+            "hash": "577f358524b13773c1ef72953128f49c6a327e39"
+          },
+          {
+            "time": "13:06:14-05:00",
+            "message": "📝 Add checkout documentation for verification system session",
+            "hash": "41ea7b4561b2480b5e8fb5890a0f34c99a4d3e2e"
+          },
+          {
+            "time": "13:04:17-05:00",
+            "message": "feat: Implement Agent Verification System to prevent false confidence claims",
+            "hash": "d8f56b5ede6c321d9dff6dfbb6e11a1ddee884f2"
+          }
+        ],
+        "2025-08-25": [
+          {
+            "time": "09:59:39-05:00",
+            "message": "Critical system repair: Fix all broken DevOps components",
+            "hash": "dcf2546def3be7c9103d4ee837ffb16a5454bdb6"
+          },
+          {
+            "time": "05:04:18-05:00",
+            "message": "MISSION COMPLETE: Pachacuti DevOps System Fully Operational",
+            "hash": "b4bc9d3669dd87a27dee27fed0fb97eb6b1cc867"
+          },
+          {
+            "time": "05:00:00-05:00",
+            "message": "Phase 1 Complete: Critical Pachacuti DevOps System Fixes",
+            "hash": "5157b90bfb541e17e4ddf52b89f3d3719e995eed"
+          },
+          {
+            "time": "04:41:09-05:00",
+            "message": "📝 Add next session context restoration",
+            "hash": "1ded43870ce26ad0b35dab2371b7170cf14b7686"
+          },
+          {
+            "time": "04:40:55-05:00",
+            "message": "📝 Add checkout session documentation",
+            "hash": "2fefbceb7088b72881febd12fe18d64ab45b9651"
+          },
+          {
+            "time": "04:38:39-05:00",
+            "message": "🔗 ADD: Project Links & Auto-Update Dashboard System",
+            "hash": "acb43337bc0f384dae878ca14ec6dd66b7101582"
+          }
+        ],
+        "2025-08-24": [
+          {
+            "time": "21:06:03-05:00",
+            "message": "📝 Add next session context restoration",
+            "hash": "d6c390a2729a181a2b9c05e6ee02fe8d64a60360"
+          },
+          {
+            "time": "21:05:05-05:00",
+            "message": "📝 Add checkout session documentation",
+            "hash": "879cdd75fed16bcebf138c00dcd8a2b133c21932"
+          },
+          {
+            "time": "21:02:36-05:00",
+            "message": "🚦 FIX: Resolve Port Conflicts & Implement Port Management System",
+            "hash": "dfeeaf53e19711e06123e6be500ccaaadbe9dd84"
+          },
+          {
+            "time": "18:33:17-05:00",
+            "message": "📋 MAJOR: Complete Project Management Dashboard Integration",
+            "hash": "beb3770aab2190959061c5b7740f162b1662b9a5"
+          },
+          {
+            "time": "17:26:13-05:00",
+            "message": "🚀 MAJOR: Fixed Second Brain Import Script - 100% Quality Score Achieved",
+            "hash": "db78b52150f9dc0749a9e286ac14717230f13546"
+          },
+          {
+            "time": "17:07:19-05:00",
+            "message": "🔧 CRITICAL: Complete Pachacuti Architectural Integration",
+            "hash": "07b4233e661dd9edb8f439a7557169de4b62ae55"
+          },
+          {
+            "time": "15:59:57-05:00",
+            "message": "🧠 Complete Second Brain Hierarchy Display System",
+            "hash": "dd17f316d762c1c2f1a07d37ca17b2712ff03e46"
+          },
+          {
+            "time": "15:53:02-05:00",
+            "message": "🔧 FINAL: Quality Control Fix + Session Documentation Complete",
+            "hash": "7ee8d3947a2c4bfc311afbef0b23d42e54a1f71a"
+          },
+          {
+            "time": "15:29:14-05:00",
+            "message": "📋 Complete session documentation and CTO strategic summary",
+            "hash": "db2c821918177a9b15d532bedc771cb7a25d9a37"
+          },
+          {
+            "time": "15:24:16-05:00",
+            "message": "🔧 Fix Claude Code Approval System & Security Issues",
+            "hash": "469e72f3fdfb8a15bd9a39eb0692b1c703257fa9"
+          },
+          {
+            "time": "15:20:30-05:00",
+            "message": "🎯 CRITICAL INFRASTRUCTURE: Second Brain Shell Storage Scripts Restored",
+            "hash": "a6161672ba6096617db85db05e614ad2f813b4fc"
+          },
+          {
+            "time": "14:49:57-05:00",
+            "message": "🔧 Fix dashboard functionality and links",
+            "hash": "e3818a931837858160fb72a5bda6167dea02c8fa"
+          },
+          {
+            "time": "14:33:44-05:00",
+            "message": "🔧 Enhanced QA Verifier with Deep Verification Capabilities",
+            "hash": "91123d8f4b92b13a1b9dc96dbc2ff467acf57a93"
+          },
+          {
+            "time": "13:59:58-05:00",
+            "message": "📋 Session Documentation: Multi-Agent Crypto Testing Infrastructure",
+            "hash": "f3a7c3870e0d4716489bb5cafe1ee00b5cf8d74c"
+          },
+          {
+            "time": "13:57:28-05:00",
+            "message": "🔧 Quality Assurance Verification System Complete",
+            "hash": "c70c483e98e2f68776f2bb3691feb3cd4968eceb"
+          },
+          {
+            "time": "11:12:31-05:00",
+            "message": "🔧 MAJOR UPDATE: Real Token Tracking with Anthropic API",
+            "hash": "5632f8f2c9bf403624c529bc23bd978f1ec3fbf3"
+          },
+          {
+            "time": "09:52:36-05:00",
+            "message": "🔧 CRITICAL FIX: Real Token Usage Tracking + Dashboard Enhancement",
+            "hash": "db34243d14c50acfde2e99d044738568c59932c6"
+          }
+        ],
+        "2025-08-23": [
+          {
+            "time": "17:53:45-05:00",
+            "message": "🛠️ Performance Monitor Suite + Clean Repository",
+            "hash": "8ac21d7f291759493378eb529c016b9287e6b24d"
+          },
+          {
+            "time": "17:48:52-05:00",
+            "message": "🎯 Integrate Task Manager & System Services into Unified DevOps Dashboard",
+            "hash": "9937abb8cd46dcfe7f171e8abbd2a28d394ec49a"
+          },
+          {
+            "time": "16:03:20-05:00",
+            "message": "📋 Pachacuti DevOps - Session Complete",
+            "hash": "956bdfc3e2a7f05d63a2f518351ad4fb9129656a"
+          },
+          {
+            "time": "16:00:26-05:00",
+            "message": "🔧 CRITICAL FIX: Claude Code Approval System",
+            "hash": "c07c7e9650a3d3cc76dc8f5d3a2935bd40b20858"
+          },
+          {
+            "time": "14:58:10-05:00",
+            "message": "📋 Pachacuti DevOps Session Complete - Aug 23, 2025",
+            "hash": "9a5cb30a6f7d2261321a8bd499fef192bd3add25"
+          },
+          {
+            "time": "14:40:18-05:00",
+            "message": "🔧 Fix MCP Server Configuration for Claude Desktop",
+            "hash": "c716fdf37a11a154a8046430bf2af8149d2d047b"
+          },
+          {
+            "time": "13:59:24-05:00",
+            "message": "✅ DevOps: Complete Puppeteer setup for all agents",
+            "hash": "c1c3e1b187140f72a2b831668ffd4c8412d48209"
+          },
+          {
+            "time": "13:51:39-05:00",
+            "message": "Fix agent counting to match actual system state (3 shells)",
+            "hash": "eeccaa709bc9fca25566f64b848718568c385723"
+          },
+          {
+            "time": "13:48:24-05:00",
+            "message": "Fix agent status counting with accurate Active/Inactive/Closed categories",
+            "hash": "d57f5de19d1ecdca73c5d8ad2dd34834d7d59996"
+          },
+          {
+            "time": "13:45:23-05:00",
+            "message": "Add quick daily report access card to main dashboard",
+            "hash": "adf452b77b520e91336b342843413880219068a5"
+          },
+          {
+            "time": "13:41:24-05:00",
+            "message": "Enhanced dashboard metrics and fixed agent status accuracy",
+            "hash": "3a3b70031feaec37ad1ce2f74e967bad9f9d516d"
+          },
+          {
+            "time": "13:38:10-05:00",
+            "message": "feat: Dashboard Enhancement & Session Recording Framework",
+            "hash": "7ec2f47eab4d539b13b167d728d42eda896f1611"
+          },
+          {
+            "time": "13:36:07-05:00",
+            "message": "Add comprehensive daily report with calendar interface",
+            "hash": "5dda163e711c99bbc9363b5aeb92e95d3b73f620"
+          },
+          {
+            "time": "13:23:24-05:00",
+            "message": "docs: Complete session documentation and final metrics",
+            "hash": "1c9a4e0cd5f5e09e166ba18ba91c73ecf995369d"
+          },
+          {
+            "time": "13:22:22-05:00",
+            "message": "Complete checkout protocol documentation and next session prep",
+            "hash": "fd6067cd02feb8ae5e049de76c1c7be4474570be"
+          },
+          {
+            "time": "13:19:24-05:00",
+            "message": "feat: Complete Smart Auto-Approval System Implementation",
+            "hash": "c31261844e2a2b2f836770883b782630d2fbeb1c"
+          },
+          {
+            "time": "13:15:30-05:00",
+            "message": "chore: Update metrics after session completion",
+            "hash": "78bd6cfd7763d419597942d7b2e143990b962b2d"
+          },
+          {
+            "time": "13:14:42-05:00",
+            "message": "Complete MCP server configuration and checkout protocol",
+            "hash": "48593e25c08991ddac13d05408732e291bfb8cc6"
+          },
+          {
+            "time": "13:14:28-05:00",
+            "message": "feat: Add professional agent monitoring dashboard",
+            "hash": "99603ec0c2f9725560ed4fbe8e71361a62db270b"
+          },
+          {
+            "time": "13:02:35-05:00",
+            "message": "update: Auto-commit 2025-08-23 13:02",
+            "hash": "4c6408d736027cf4740bc7d2404b0887dc33fbe1"
+          },
+          {
+            "time": "13:02:27-05:00",
+            "message": "feat: Complete Pachacuti DevOps infrastructure",
+            "hash": "205ee59997c9cbaeab62fdf9129d3d99cc27ac8c"
+          },
+          {
+            "time": "12:30:24-05:00",
+            "message": "feat: Implement Pachacuti Approval Optimization System",
+            "hash": "4cb8a077c3c5432e411b3fb0ae6a394869109c95"
+          },
+          {
+            "time": "12:23:56-05:00",
+            "message": "Initial commit - Pachacuti project setup",
+            "hash": "876290476d1de1a33aedce7745fb805e3437275e"
+          }
+        ]
+      }
+    }
+  },
+  "timeline": {
+    "2025-08-28": [
+      {
+        "commits": 1,
+        "features": [],
+        "fixes": [
+          "fix: Complete Slack approval integration and quality control fixes"
+        ],
+        "other": []
+      }
+    ],
+    "2025-08-26": [
+      {
+        "commits": 4,
+        "features": [
+          "📝 Add checkout documentation for verification system session",
+          "feat: Implement Agent Verification System to prevent false confidence claims"
+        ],
+        "fixes": [
+          "fix: Update performance and task metrics after checkout session"
+        ],
+        "other": [
+          "📝 Session checkout: Comprehensive code review and system analysis"
+        ]
+      }
+    ],
+    "2025-08-25": [
+      {
+        "commits": 6,
+        "features": [
+          "📝 Add next session context restoration",
+          "📝 Add checkout session documentation",
+          "🔗 ADD: Project Links & Auto-Update Dashboard System"
+        ],
+        "fixes": [
+          "Critical system repair: Fix all broken DevOps components",
+          "Phase 1 Complete: Critical Pachacuti DevOps System Fixes"
+        ],
+        "other": [
+          "MISSION COMPLETE: Pachacuti DevOps System Fully Operational"
+        ]
+      }
+    ],
+    "2025-08-24": [
+      {
+        "commits": 17,
+        "features": [
+          "📝 Add next session context restoration",
+          "📝 Add checkout session documentation"
+        ],
+        "fixes": [
+          "🚦 FIX: Resolve Port Conflicts & Implement Port Management System",
+          "🚀 MAJOR: Fixed Second Brain Import Script - 100% Quality Score Achieved",
+          "🔧 FINAL: Quality Control Fix + Session Documentation Complete",
+          "🔧 Fix Claude Code Approval System & Security Issues",
+          "🔧 Fix dashboard functionality and links",
+          "🔧 CRITICAL FIX: Real Token Usage Tracking + Dashboard Enhancement"
+        ],
+        "other": [
+          "📋 MAJOR: Complete Project Management Dashboard Integration",
+          "🔧 CRITICAL: Complete Pachacuti Architectural Integration",
+          "🧠 Complete Second Brain Hierarchy Display System",
+          "📋 Complete session documentation and CTO strategic summary",
+          "🎯 CRITICAL INFRASTRUCTURE: Second Brain Shell Storage Scripts Restored",
+          "🔧 Enhanced QA Verifier with Deep Verification Capabilities",
+          "📋 Session Documentation: Multi-Agent Crypto Testing Infrastructure",
+          "🔧 Quality Assurance Verification System Complete",
+          "🔧 MAJOR UPDATE: Real Token Tracking with Anthropic API"
+        ]
+      }
+    ],
+    "2025-08-23": [
+      {
+        "commits": 23,
+        "features": [
+          "Add quick daily report access card to main dashboard",
+          "feat: Dashboard Enhancement & Session Recording Framework",
+          "Add comprehensive daily report with calendar interface",
+          "feat: Complete Smart Auto-Approval System Implementation",
+          "feat: Add professional agent monitoring dashboard",
+          "feat: Complete Pachacuti DevOps infrastructure",
+          "feat: Implement Pachacuti Approval Optimization System"
+        ],
+        "fixes": [
+          "🔧 CRITICAL FIX: Claude Code Approval System",
+          "🔧 Fix MCP Server Configuration for Claude Desktop",
+          "Fix agent counting to match actual system state (3 shells)",
+          "Fix agent status counting with accurate Active/Inactive/Closed categories",
+          "Enhanced dashboard metrics and fixed agent status accuracy"
+        ],
+        "other": [
+          "🛠️ Performance Monitor Suite + Clean Repository",
+          "🎯 Integrate Task Manager & System Services into Unified DevOps Dashboard",
+          "📋 Pachacuti DevOps - Session Complete",
+          "📋 Pachacuti DevOps Session Complete - Aug 23, 2025",
+          "✅ DevOps: Complete Puppeteer setup for all agents",
+          "docs: Complete session documentation and final metrics",
+          "Complete checkout protocol documentation and next session prep",
+          "chore: Update metrics after session completion",
+          "Complete MCP server configuration and checkout protocol",
+          "update: Auto-commit 2025-08-23 13:02",
+          "Initial commit - Pachacuti project setup"
+        ]
+      }
+    ]
+  },
+  "developers": {
+    "dan@dkdev.io": {
+      "name": "Daniel Kelly",
+      "email": "dan@dkdev.io",
+      "commits": 51,
+      "projects": [
+        "pachacuti"
+      ]
+    }
+  },
+  "technologies": {
+    "Claude AI": 1,
+    "anthropic": 1
+  },
+  "milestones": [],
+  "insights": {
+    "summary": {
+      "totalProjects": 1,
+      "totalDevelopers": 1,
+      "totalCommits": 51,
+      "technologies": 2
+    },
+    "trends": {
+      "mostActiveProject": "pachacuti",
+      "mostActiveDeveloper": "Daniel Kelly",
+      "popularTechnologies": [
+        "Claude AI",
+        "anthropic"
+      ]
+    },
+    "patterns": {
+      "developmentVelocity": "minimal",
+      "collaborationLevel": "low"
+    }
+  },
+  "sessionLogs": [],
+  "workHistory": []
+}

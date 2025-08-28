@@ -73,10 +73,34 @@ class ApprovalEngine {
   }
 
   /**
+   * Check for dangerous commands that should NEVER be auto-approved
+   */
+  isDangerousCommand(command) {
+    const dangerousPatterns = [
+      /^rm -rf \/$/,           // Delete root
+      /^rm -rf \//,            // Delete from root
+      /^sudo rm -rf/,          // Sudo delete
+      /^dd if=.*of=\/dev/,     // Disk operations
+      /^mkfs/,                 // Format filesystem
+      /^fdisk/,                // Partition management
+      /^chmod 777 \//,         // Make root world-writable
+      /curl.*\|\s*(?:bash|sh)/, // Curl to shell
+      /wget.*\|\s*(?:bash|sh)/  // Wget to shell
+    ];
+    
+    return dangerousPatterns.some(pattern => pattern.test(command));
+  }
+
+  /**
    * Check if operation matches auto-approve patterns
    */
   matchesAutoApprovePattern(operation) {
     const { type, command, filePath, action } = operation;
+    
+    // ALWAYS block dangerous commands
+    if (type === 'command' && this.isDangerousCommand(command)) {
+      return false;
+    }
 
     // Git operations
     if (type === 'git' && this.rules.autoApprove.gitOperations.enabled) {
@@ -88,6 +112,19 @@ class ApprovalEngine {
     if (type === 'command' && this.rules.autoApprove.developmentCommands.enabled) {
       const patterns = this.rules.autoApprove.developmentCommands.patterns;
       return patterns.some(pattern => command.includes(pattern));
+    }
+
+    // Supabase operations - FULL AUTONOMY
+    if (type === 'command' && this.rules.autoApprove.supabaseOperations?.enabled) {
+      const supabaseCommands = this.rules.autoApprove.supabaseOperations.commands;
+      if (supabaseCommands.some(cmd => command.startsWith(cmd))) {
+        return true;
+      }
+      // Check PostgreSQL operations
+      const psqlPatterns = this.rules.autoApprove.supabaseOperations.psqlOperations?.patterns || [];
+      if (psqlPatterns.some(pattern => command.includes(pattern))) {
+        return true;
+      }
     }
 
     // File operations
@@ -130,7 +167,7 @@ class ApprovalEngine {
     }
 
     // Security sensitive operations
-    if (categories.securitySensitive) {
+    if (categories.securitySensitive && action) {
       const patterns = categories.securitySensitive.patterns;
       if (patterns.some(pattern => action.includes(pattern))) {
         return true;
@@ -177,8 +214,16 @@ class ApprovalEngine {
       external: 0.9,
       test: 0.1,
       documentation: 0.05,
-      styling: 0.1
+      styling: 0.1,
+      dangerousCommand: 1.0  // Maximum risk
     };
+
+    // Check for dangerous commands FIRST
+    if (operation.type === 'command' && operation.command) {
+      if (this.isDangerousCommand(operation.command)) {
+        return 1.0; // Maximum risk score
+      }
+    }
 
     // Check each factor
     if (operation.filePath?.includes('production')) score += factors.production;

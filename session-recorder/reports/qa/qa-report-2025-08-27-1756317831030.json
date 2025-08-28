@@ -1,0 +1,65 @@
+{
+  "reportId": "qa-report-2025-08-27-1756317831030",
+  "timestamp": "2025-08-27T18:03:51.031Z",
+  "summary": {
+    "totalSessions": 1,
+    "averageQualityScore": 0.75,
+    "healthySessions": 1,
+    "problematicSessions": 0,
+    "corruptedSessions": 0
+  },
+  "details": [
+    {
+      "sessionId": "test-session",
+      "timestamp": "2025-08-27T18:03:51.030Z",
+      "qualityScore": {
+        "overall": 0.75,
+        "factors": {
+          "completeness": 0.9999999999999999,
+          "consistency": 1,
+          "activity_level": 0.3,
+          "problem_resolution": 0.5,
+          "file_integrity": 1
+        },
+        "weights": {
+          "completeness": 0.3,
+          "consistency": 0.2,
+          "activity_level": 0.25,
+          "problem_resolution": 0.15,
+          "file_integrity": 0.1
+        },
+        "grade": "C"
+      },
+      "integrity": {
+        "isValid": true,
+        "errors": [],
+        "warnings": [],
+        "metadata": {
+          "fileSize": 1121,
+          "lastModified": {},
+          "hasBackup": false
+        }
+      },
+      "completeness": {
+        "hasActivities": true,
+        "hasFileChanges": true,
+        "hasCommits": true,
+        "hasDecisions": true
+      },
+      "metadata": {
+        "activitiesCount": 2,
+        "fileChangesCount": 1,
+        "commitsCount": 1,
+        "assessmentTime": "2025-08-27T18:03:51.030Z"
+      },
+      "errors": "[Circular Reference]",
+      "warnings": "[Circular Reference]"
+    }
+  ],
+  "recommendations": [],
+  "systemHealth": {
+    "circuitBreakerStatus": "CLOSED",
+    "recentFailures": 0,
+    "lastAssessment": "2025-08-27T18:03:51.031Z"
+  }
+}
